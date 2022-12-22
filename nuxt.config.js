@@ -42,24 +42,41 @@ export default {
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      options: {
+      customProperties: true
+    },
+      light: true,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+        light: {
+          primary: '#F6F1EB',
+          secondary: '#F4592F',
+          card:"#C9AE91",
+          crcard:"#E7E0D8",
+          button:"#E8DED3",
+          accent: '#9c27b0',
+          background: '#F6F1EB'
         }
       }
     }
   },
-
+  // mode: {
+  //   mode:'spa'
+  // },
+  // auth: {
+  //   strategies: {
+  //     facebook: {
+  //       endpoints: {
+  //         userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
+  //       },
+  //       clientId: '1341358666632206',
+  //       scope: ['public_profile', 'email']
+  //     },
+  //   }
+  // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   }
+
+
 }
