@@ -1,17 +1,11 @@
 <template>
-  <v-btn
-  class="px-8"
-  large
-  >
-    Select Cafe List
-    <v-icon >
-      mdi-magnify
-    </v-icon>
-  </v-btn>
+  <div class="container my-7">
+    <div class="d-flex justify-center">
+      <v-btn class="px-8" dense> Search Cafe List </v-btn>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>

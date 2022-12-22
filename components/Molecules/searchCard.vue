@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="300px" color="card">
+  <v-card class="mx-auto" width="300px"  color="card">
     <v-img
       class="white--text align-end"
       height="300px"
@@ -7,16 +7,17 @@
     >
     </v-img>
 
-    <v-card-action class="pt-3 d-flex align-center justify-center pb-6">
-      <SelectCafe></SelectCafe>
+    <v-card-action class="d-flex align-center justify-cente">
+      <slot></slot>
+      <!-- <SelectCafe></SelectCafe> -->
     </v-card-action>
   </v-card>
 </template>
 <script>
-import SelectCafe from "../Atoms/SelectCafe.vue";
+
 
 export default {
   props: ['imgSrc'],
-  components: { SelectCafe },
+
 };
 </script>
