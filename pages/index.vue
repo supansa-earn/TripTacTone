@@ -45,9 +45,6 @@
 import LoginBtn from "../components/Atoms/LoginBtn.vue";
 import Hamburger from "../components/Atoms/Hamburger.vue";
 import CreatePlan from "../components/Atoms/CreatePlan.vue";
-import CardSelectCafe from "../components/Molecules/CardSelectCafe.vue";
-import CardSelectMood from "../components/Molecules/CardSelectMood.vue";
-import CardSelectStyle from "../components/Molecules/CardSelectStyle.vue";
 import Navbar from "../components/Organisms/Navbar.vue";
 import SearchCard from "../components/Molecules/searchCard.vue";
 import SelectCafe from "../components/Atoms/SelectCafe.vue";
@@ -62,9 +59,6 @@ export default {
   components: {
     LoginBtn,
     Hamburger,
-    CardSelectCafe,
-    CardSelectMood,
-    CardSelectStyle,
     CreatePlan,
     Navbar,
     SearchCard,
