@@ -39,7 +39,12 @@
   </v-app>
 </template>
 
-<style scoped></style>
+<style scoped>
+#app{
+  overflow: hidden;
+  height: 130vh;
+}
+</style>
 
 <script>
 import LoginBtn from "../components/Atoms/LoginBtn.vue";
@@ -79,15 +84,15 @@ export default {
           imgSrc:
             "https://i.pinimg.com/564x/a0/1c/08/a01c08b33d2df14b566e7bfd767398a0.jpg",
           action: ACTION_TYPE.SELECT_MOOD,
-          title: "Select Mood&Tone",
-          items: ["m1", "m2", "m3", "m4"],
+          title: "Select Mood & Tone",
+          items: ["Dark", "Light", "Earthy", "Pastel"],
         },
         {
           imgSrc:
             "https://64.media.tumblr.com/b805a25cae7e15491829160595938fb5/28e94305105f294b-9f/s500x750/77ff3e2148eba1ef9ae1f3322176b61259644828.jpg",
           action: ACTION_TYPE.SELECT_STYLE,
           title: "Select Style",
-          items: ["s1", "s2", "s3", "s4"],
+          items: ["Minimal", "Japandi", "Modern", "Loft"],
         },
       ],
     };
