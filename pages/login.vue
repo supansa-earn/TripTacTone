@@ -3,7 +3,7 @@
     <v-app>
         <v-row>
             <v-col>
-                <v-card color="primary" class="mx-auto pa-5 my-16" max-width="344">
+                <v-card color="background" class="mx-auto pa-5 my-16" max-width="344" elevation="9">
                     <v-card-title class="d-flex justify-center">
                         Welcome to Trip Tac Tone
                     </v-card-title>
@@ -48,7 +48,10 @@ export default {
 
 <style>
 #app {
-    background: url('https://d1tm14lrsghf7q.cloudfront.net/media/files/rtf/2019_11_FRAME/labotory_cafe_oriente_22.jpg') no-repeat center center fixed !important;
-    background-size: cover;
+
+    overflow: hidden;
+    height: 100vh;
+    background:linear-gradient(0deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url(https://d1tm14lrsghf7q.cloudfront.net/media/files/rtf/2019_11_FRAME/labotory_cafe_oriente_22.jpg) no-repeat center center fixed ;
 }
+
 </style>
