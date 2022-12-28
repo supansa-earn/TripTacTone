@@ -2,15 +2,16 @@
   <v-btn
   icon
   x-large
-  color="blue"
-  @click="$auth.loginWith('facebook')"
+  color="red"
+  @click="$auth.loginWith('google')"
   >
    <v-icon>
-    mdi-facebook
+    mdi-google
    </v-icon>
   </v-btn>
 </template>
 <script>
 export default {
+
 }
 </script>

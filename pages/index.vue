@@ -2,19 +2,20 @@
   <v-app>
     <Navbar></Navbar>
 
-    <v-row class="pt-15">
-      <v-col md="12" sm="6" class="d-flex justify-center mt-16">
+    <v-row class="pt-13">
+      <v-col md="12" sm="6" class="d-flex justify-center mt-13">
         <div>
-          <h3 class="font-weight-medium pl-8 headline">Trip Tac Tone</h3>
+          <h3 class="font-weight-medium pl-4 headline d-flex justify-center"
+          style="color: #F4592F">Trip Tac Tone</h3>
 
-          <h1 class="mt-5 font-weight-black">It's cafe o'clock</h1>
+          <h1 class="mt-3 font-weight-black text2 ml-6">It's cafe o'clock</h1>
         </div>
       </v-col>
     </v-row>
 
     <v-row>
       <v-col md="4" sm="6" v-for="(el, index) in cards" :key="index">
-        <div class="d-flex align-end justify-center">
+        <div class="d-flex align-end justify-center ml-5">
           <SearchCard :imgSrc="el.imgSrc">
             <SelectCafe v-if="el.action == actionType.SELECT_CAFE"/>
             <DropdownSearch
@@ -36,13 +37,22 @@
         </div>
       </v-col>
     </v-row>
+
+
+
+
   </v-app>
 </template>
 
 <style scoped>
 #app{
   overflow: hidden;
-  height: 130vh;
+  height: 140vh;
+}
+.text2{
+  color: #F4592F;
+  font-size: 50px;
+  font-family: 'Mansalva', cursive;
 }
 </style>
 

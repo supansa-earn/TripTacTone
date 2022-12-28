@@ -3,7 +3,7 @@
     <v-app-bar color="background" elevate-on-scroll fixed>
       <div @click="drawer = !drawer"><Hamburger></Hamburger></div>
 
-      <v-toolbar-title class="font-weight-bold pl-8 headline"
+      <v-toolbar-title class="font-weight-bold pl-8 headline text4"
         >Trip Tac Tone</v-toolbar-title
       >
       <v-spacer></v-spacer>
@@ -106,5 +106,9 @@ export default {
   font-size: 22px;
   text-shadow: 2px 2px 0 #f4592f, -1px -1px 0 #f4592f, 1px -1px 0 #f4592f,
     -1px 1px 0 #f4592f, 1px 1px 0 #f4592f;
+}
+.text4{
+  color: #f4592f;
+  font-style: bold;
 }
 </style>
