@@ -10,13 +10,24 @@
             elevation="9"
           >
             <v-card-title class="d-flex justify-center" style="color: #f4592f">
-              Welcome to Trip Tac Tone
+              Create an Account
             </v-card-title>
             <v-card-subtitle class="d-flex justify-center"
-              >Login to create your plan</v-card-subtitle
+              >Trip Tac Tone</v-card-subtitle
             >
             <v-card-actions class="d-flex justify-center">
               <v-form ref="form" lazy-validation>
+                <v-text-field
+                name="username"
+                prepend-icon="mdi-account"
+                type="text"
+                v-model="name"
+                label="Name"
+                required
+
+              >
+              </v-text-field>
+
                 <v-text-field
                   name="login"
                   prepend-icon="mdi-email"
@@ -25,7 +36,6 @@
                   :rules="emailRules"
                   label="Email"
                   required
-                  solo
                 >
                 </v-text-field>
 
@@ -34,29 +44,15 @@
                   prepend-icon="mdi-lock"
                   type="password"
                   v-model="password"
-                  :rules="passwordRules"
                   label="Password"
                   required
-                  solo
                 ></v-text-field>
+
                 <div class="d-flex justify-center">
                   <v-btn rounded color="secondary" class="px-5" @click="login">
-                    Login
+                    Sign Up
                   </v-btn>
                 </div>
-                <v-card-subtitle class="d-flex justify-center">
-                  or login via social link
-                </v-card-subtitle>
-                <v-row class="d-flex justify-center pb-5">
-                  <FbBtn></FbBtn>
-                  <GGBtn></GGBtn>
-                </v-row>
-                <v-divider></v-divider>
-                <v-card-text class="d-flex justify-center">
-                  <v-btn text rounded x-small color="secondary">
-                    Create an Account
-                  </v-btn></v-card-text
-                >
               </v-form>
             </v-card-actions>
           </v-card>
@@ -81,30 +77,29 @@ export default {
 
   data() {
     return {
-        email: '',
-        password: '',
+      email: "",
+      password: "",
+      errors: "",
       emailRules: [
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
     };
   },
-  methods:{
-    login(){
-      alert('form submitted')
-    }
-  }
-  // methods: {
-  //   login() {
-  //     let that = this;
-  //     this.$fire.auth
-  //       .signInWithEmailAndPassword(this.auth.email, this.auth.password)
-  //       .then((user) => {
-  //         //we are signed in
-  //         $nuxt.$router.push("/");
-  //       });
-  //   },
-  // },
+  methods: {
+    login() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then((user) => {
+          console.log(user);
+          this.$router.push("/home");
+        })
+        .catch((error) => {
+          this.errors = error;
+        });
+    },
+  },
 };
 </script>
 

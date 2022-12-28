@@ -2,6 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  mode:'spa',
   head: {
     titleTemplate: '%s - tiptactone',
     title: 'tiptactone',
@@ -25,6 +26,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/firebase.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -38,6 +40,26 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config:{
+          apiKey: "AIzaSyC5Qp9fXxiQG4mLmNqCwbFA7ryN55cMMU8",
+          authDomain: "trip-tac-tone.firebaseapp.com",
+          databaseURL: "https://trip-tac-tone-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "trip-tac-tone",
+          storageBucket: "trip-tac-tone.appspot.com",
+          messagingSenderId: "131124707681",
+          appId: "1:131124707681:web:67319854fc7105b3f88520"
+        },
+        services:{
+          auth:{
+            onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
+            onAuthStateChangedAction: 'onAuthStateChangedAction',
+          }
+        }
+      }
+    ]
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -77,7 +99,8 @@ export default {
   // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
 
 
 }

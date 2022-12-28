@@ -1,12 +1,14 @@
 <template>
   <v-btn
   elevation="4"
-  large
+  x-large
   color="button"
-  class="px-16 text-center
+  class="d-flex align-center
+        text3 px-10 text-center
         text-no-wrap
-        rounded-lg
+        rounded-xl
         font-weight-black"
+
   >
     Create Plan
   </v-btn>
@@ -17,3 +19,8 @@ export default {
 
 }
 </script>
+<style scoped>
+.text3{
+  color: #F4592F !important;
+}
+</style>

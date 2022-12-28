@@ -1,20 +1,16 @@
 <template>
   <div>
-    <CreatePlan></CreatePlan>
-    <v-btn
-    depressed
-    color="primary"
-  >
-    Primary
-  </v-btn>
-  <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-</div>
+    <v-container>
+      <h1>
+      Welcome <span v-if="currentUser">{{currentUser.displayName}}</span>
+      </h1>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import CreatePlan from '../components/Atoms/CreatePlan.vue';
 
 export default {
-    components: { CreatePlan }
+
 }
 </script>
