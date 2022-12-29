@@ -8,6 +8,7 @@
         text-no-wrap
         rounded-xl
         font-weight-black"
+        to="/crplanform"
 
   >
     Create Plan
@@ -23,4 +24,5 @@ export default {
 .text3{
   color: #F4592F !important;
 }
+
 </style>

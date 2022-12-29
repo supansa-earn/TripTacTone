@@ -7,7 +7,7 @@
         >Trip Tac Tone</v-toolbar-title
       >
       <v-spacer></v-spacer>
-      <v-btn text color="secondary" class="radius rounded-xl">
+      <v-btn color="secondary" text rounded to="/crplanform" class="mr-5" >
         Create Plan
       </v-btn>
       <LoginBtn></LoginBtn>
@@ -24,11 +24,11 @@
       <v-list nav dense>
         <v-list-item-group v-model="group">
           <!-- Home -->
-          <v-list-item>
+          <v-list-item to="/">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title >Home</v-list-item-title>
           </v-list-item>
 
           <!-- Tone -->
@@ -79,6 +79,7 @@
 import Hamburger from "../Atoms/Hamburger.vue";
 import LoginBtn from "../Atoms/LoginBtn.vue";
 
+
 export default {
   components: { Hamburger, LoginBtn },
 
@@ -110,5 +111,8 @@ export default {
 .text4{
   color: #f4592f;
   font-style: bold;
+}
+.v-btn:hover:before {
+  background-color: currentColor;
 }
 </style>
