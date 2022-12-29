@@ -10,7 +10,7 @@
       <v-btn color="secondary" text rounded to="/crplanform" class="mr-5" >
         Create Plan
       </v-btn>
-      <LoginBtn></LoginBtn>
+      <LoginBtn ></LoginBtn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" app temporary>
       <v-img
@@ -44,7 +44,7 @@
           </v-list-group>
 
           <!-- CafeList -->
-          <v-list-item>
+          <v-list-item to="/cafeList">
             <v-list-item-icon>
               <v-icon>mdi-map-marker</v-icon>
             </v-list-item-icon>

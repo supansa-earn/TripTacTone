@@ -3,10 +3,12 @@
 </template>
 
 <style scoped>
-.theme--light.v-application {
-  background-color: var(--v-background-base, #96bca6) !important;
+
+#app{
+   background: #F6F1EB
 
 }
+
 
 </style>
 <script>

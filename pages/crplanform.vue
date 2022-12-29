@@ -201,7 +201,7 @@ export default {
 </script>
 <style scoped>
 .box {
-  max-width: 300px !important;
+  max-width: 345px !important;
 }
 .size {
   max-width: 150px !important;
@@ -209,5 +209,8 @@ export default {
 .text{
   color: #F4592F;
 }
-
+#app{
+  overflow: hidden;
+  height: 160vh;
+}
 </style>

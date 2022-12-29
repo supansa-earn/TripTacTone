@@ -53,10 +53,14 @@
                 </v-row>
                 <v-divider></v-divider>
                 <v-card-text class="d-flex justify-center">
-                  <v-btn text rounded x-small color="secondary">
+                  <v-btn text rounded x-small color="secondary" to="/signup">
                     Create an Account
-                  </v-btn></v-card-text
-                >
+                  </v-btn></v-card-text>
+
+                  <div class="d-flex justify-center"><v-btn outlined rounded x-small color="blue" to="/">
+                      Back Home<v-icon small>mdi-home</v-icon>
+                    </v-btn></div>
+
               </v-form>
             </v-card-actions>
           </v-card>
@@ -113,9 +117,9 @@ export default {
   overflow: hidden;
   height: 100vh;
   background: linear-gradient(
-      0deg,
-      rgba(241, 239, 188, 0.562),
-      rgba(255, 255, 255, 0.597)
+    0deg,
+    rgba(206, 187, 157, 0.76),
+    rgba(246, 241, 235, 0.459)
     ),
     url(https://d1tm14lrsghf7q.cloudfront.net/media/files/rtf/2019_11_FRAME/labotory_cafe_oriente_22.jpg)
       no-repeat center center fixed;
