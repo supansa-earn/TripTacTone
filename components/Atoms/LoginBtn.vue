@@ -1,7 +1,7 @@
 <template>
   <v-btn
-  class="radius rounded-xl" color="button"
-
+  class="radius rounded-xl" color="button red--text"
+  to="/login"
   >
     Log in
     <v-icon>
