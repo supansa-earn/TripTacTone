@@ -10,7 +10,7 @@ export default {
 </script>
 <style scoped>
 .box {
-  max-width: 180px !important;
+  max-width: 195px !important;
 
 }
 </style>
