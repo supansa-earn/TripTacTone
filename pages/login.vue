@@ -3,7 +3,11 @@
     <v-app>
       <v-row>
         <v-col>
-          <v-card
+          <h1> Welcome <span v-if="currentUser">{{currentUser.displayName}}</span></h1>
+          <v-card>
+            <signin></signin>
+          </v-card>
+          <!-- <v-card
             color="background"
             class="mx-auto pa-3 my-16"
             max-width="344"
@@ -63,9 +67,10 @@
 
               </v-form>
             </v-card-actions>
-          </v-card>
+          </v-card> -->
         </v-col>
       </v-row>
+
     </v-app>
   </div>
 </template>
@@ -74,6 +79,10 @@
 import FbBtn from "../components/Atoms/FbBtn.vue";
 import GGBtn from "../components/Atoms/GGBtn.vue";
 import LoginBtn from "../components/Atoms/LoginBtn.vue";
+import signin from "../components/Organisms/signin.vue";
+// import { mapActions, mapGetters } from 'vuex'
+
+
 
 
 export default {
@@ -81,23 +90,47 @@ export default {
     LoginBtn,
     FbBtn,
     GGBtn,
+    signin
+
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.user;
+    },
+  },
+  methods: {
+    signOut() {
+      console.log("Signed Out");
+      this.$fire.auth.signOut();
+      window.location = "/login";
+    },
   },
 
-  data() {
-    return {
-        email: '',
-        password: '',
-      emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
-    };
-  },
-  methods:{
-    login(){
-      alert('form submitted')
-    }
-  }
+
+  // data() {
+  //   // return {
+  //   //   //   email: '',
+  //   //   //   password: '',
+  //   //   // emailRules: [
+  //   //   //   (v) => !!v || "E-mail is required",
+  //   //   //   (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+  //   //   // ],
+  //   // };
+  // },
+  // methods:{
+  //   login(){
+  //     alert('form submitted')
+  //   }
+  // },
+  // computed: mapGetters({
+  //   isAuthenticated: 'auth/isAuthenticated'
+  // }),
+  // methods: {
+  //   ...mapActions({
+  //     login: 'auth/login'
+  //   })
+  // },
+
   // methods: {
   //   login() {
   //     let that = this;
