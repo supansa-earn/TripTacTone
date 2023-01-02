@@ -54,12 +54,13 @@ export default {
         },
         services:{
           auth:{
-            onAuthStateChangedMutation: 'ON_AUTH_STATE_CHANGED_MUTATION',
-            onAuthStateChangedAction: 'onAuthStateChangedAction',
-          }
-        }
-      }
-    ]
+            initialize: {
+              onAuthStateChangedMutation: "ON_AUTH_STATE_CHANGED_MUTATION",
+            },
+          },
+        },
+      },
+    ],
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -83,23 +84,48 @@ export default {
       }
     }
   },
-  // mode: {
-  //   mode:'spa'
-  // },
-  // auth: {
-  //   strategies: {
-  //     facebook: {
-  //       endpoints: {
-  //         userInfo: 'https://graph.facebook.com/v6.0/me?fields=id,name,picture{url}'
-  //       },
-  //       clientId: '1341358666632206',
-  //       scope: ['public_profile', 'email']
-  //     },
-  //   }
-  // },
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
+  router:{
+    routes: [
+      {
+        name: 'index',
+        path: '/',
+        component: 'pages/index.vue'
+      },
+      {
+        name: 'home',
+        path: '/home',
+        component: 'pages/home.vue'
+      },
+      {
+        name: 'login',
+        path: '/login',
+        component: 'pages/login.vue'
+      }
+    ]
+  },
+  // optional
+axios: {
+  baseURL: 'http://127.0.0.1:8888/api',
+  credentials: true
+},
+
+auth: {
+  strategies: {
+    local: {
+      endpoints: {
+        login: { url: 'login', method: 'post', propertyName: 'data.token' },
+        user: { url: 'me', method: 'get', propertyName: 'data' },
+        logout: false
+      }
+    }
+  },
+  redirect: {
+    login: '/'
+  }
+}
+
 
 
 

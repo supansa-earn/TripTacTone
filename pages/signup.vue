@@ -63,6 +63,8 @@
           </v-card>
         </v-col>
       </v-row>
+
+
     </v-app>
   </div>
 </template>
@@ -91,21 +93,23 @@ export default {
       ],
     };
   },
-  methods: {
-    login() {
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
-          console.log(user);
-          this.$router.push("/home");
-        })
-        .catch((error) => {
-          this.errors = error;
-        });
-    },
-  },
-};
+
+  };
+  // methods: {
+  //   login() {
+  //     firebase
+  //       .auth()
+  //       .createUserWithEmailAndPassword(this.email, this.password)
+  //       .then((user) => {
+  //         console.log(user);
+  //         this.$router.push("/home");
+  //       })
+  //       .catch((error) => {
+  //         this.errors = error;
+  //       });
+  //   },
+  // },
+
 </script>
 
 <style>

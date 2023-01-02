@@ -8,7 +8,6 @@
         text-no-wrap
         rounded-xl
         font-weight-black"
-        to="/crplanform"
 
   >
     Create Plan
