@@ -7,10 +7,9 @@
     >
     </v-img>
 
-    <v-card-action class="d-flex align-center justify-cente">
+    <v-card-actions class="d-flex align-center justify-cente">
       <slot></slot>
-      <!-- <SelectCafe></SelectCafe> -->
-    </v-card-action>
+    </v-card-actions>
   </v-card>
 </template>
 <script>

@@ -22,7 +22,7 @@
       </v-img>
 
       <v-list nav dense>
-        <v-list-item-group v-model="group">
+        <v-list-item-group v-model="drawer">
           <!-- Home -->
           <v-list-item to="/">
             <v-list-item-icon>
@@ -88,14 +88,10 @@ export default {
     tones: [["Dark"], ["Light"], ["Earthy"], ["Pastel"]],
     styles: [["Minimal"], ["Japandi"], ["Modern"], ["Loft"]],
   }),
-  watch: {
-    group() {
-      this.drawer = false;
-    },
-  },
+
   computed: {
     username() {
-      return this.$store.state.user || '';
+      return this.$store.state.user?.username || '';
     },
   },
 };

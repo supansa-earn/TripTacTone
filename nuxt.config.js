@@ -112,18 +112,18 @@ axios: {
 },
 
 auth: {
-  strategies: {
-    local: {
-      endpoints: {
-        login: { url: 'login', method: 'post', propertyName: 'data.token' },
-        user: { url: 'me', method: 'get', propertyName: 'data' },
-        logout: false
-      }
-    }
-  },
-  redirect: {
-    login: '/'
-  }
+  // strategies: {
+  //   local: {
+  //     endpoints: {
+  //       login: { url: 'login', method: 'post', propertyName: 'data.token' },
+  //       user: { url: 'me', method: 'get', propertyName: 'data' },
+  //       logout: false
+  //     }
+  //   }
+  // },
+  // redirect: {
+  //   login: '/'
+  // }
 }
 
 
