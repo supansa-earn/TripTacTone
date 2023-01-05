@@ -10,7 +10,7 @@
       <v-btn color="secondary" text rounded to="/crplanform" class="mr-5" >
         Create Plan
       </v-btn>
-      <LoginBtn ></LoginBtn>
+      <LoginBtn :username="username"></LoginBtn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" app temporary>
       <v-img
@@ -88,7 +88,11 @@ export default {
     tones: [["Dark"], ["Light"], ["Earthy"], ["Pastel"]],
     styles: [["Minimal"], ["Japandi"], ["Modern"], ["Loft"]],
   }),
-
+  computed: {
+    username() {
+      return this.$store.state.user.username || '';
+    },
+  },
 };
 </script>
 <style scoped>
