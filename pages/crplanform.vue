@@ -182,6 +182,7 @@ import Navbar from "../components/Organisms/Navbar.vue";
 
 export default {
   components: { Navbar },
+  middleware:"auth",
   data() {
     return {
       items: ["Minimal", "Japandi", "Modern", "Loft"],

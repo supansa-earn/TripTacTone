@@ -5,7 +5,8 @@
     <v-row class="pt-13">
 
       <v-col md="12" sm="6" class="d-flex justify-center mt-13">
-        <div>
+      <div>
+
           <h3 class="font-weight-medium pl-4 headline d-flex justify-center"
           style="color: #F4592F">Trip Tac Tone</h3>
 
