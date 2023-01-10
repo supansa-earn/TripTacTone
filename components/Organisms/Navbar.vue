@@ -22,7 +22,7 @@
       </v-img>
 
       <v-list nav dense>
-        <v-list-item-group v-model="drawer">
+        <v-list-item-group v-model="group">
           <!-- Home -->
           <v-list-item to="/">
             <v-list-item-icon>
