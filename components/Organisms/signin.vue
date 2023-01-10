@@ -4,7 +4,6 @@
 <script>
 export default {
   mounted() {
-    console.log(process.env)
     const firebaseui = require("firebaseui");
     require("firebaseui/dist/firebaseui.css");
 
@@ -18,13 +17,20 @@ export default {
         this.$fireModule.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
       signInSuccessUrl: "/",
+      // callbacks:{
+      //   signInSuccessWithAuthResult(){
+      //     console.log('Successfully signed in')
+      //     window.location = '/';
+      //   }
+      // }
     };
     ui.start("#firebaseui-auth-container", config);
 
     const loginWithEmailBtn = document.querySelector(
       ".firebaseui-idp-password .firebaseui-idp-text"
     );
-    loginWithEmailBtn.innerHTML = "Email Sign in/Sign up";
+    if (loginWithEmailBtn)
+      loginWithEmailBtn.innerHTML = "Email Sign in/Sign up";
   },
 };
 </script>

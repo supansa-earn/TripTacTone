@@ -36,16 +36,12 @@
 </template>
 
 <script>
-import FbBtn from "../components/Atoms/FbBtn.vue";
-import GGBtn from "../components/Atoms/GGBtn.vue";
 import LoginBtn from "../components/Atoms/LoginBtn.vue";
 import signin from "../components/Organisms/signin.vue";
 
 export default {
   components: {
     LoginBtn,
-    FbBtn,
-    GGBtn,
     signin,
   },
 };

@@ -23,13 +23,13 @@ export default {
   methods: {
     authHandler() {
       if (this.username) logout();
-      else this.$router.push({path: '/login'});
+      else this.$router.push({ path: "/login" });
     },
     onMouseOver() {
-      return Boolean(this.username) ? "Log Out" : "Log in";
+      this.authBtn = Boolean(this.username) ? "Log Out" : "Log in";
     },
     onMouseLeave() {
-      return Boolean(this.username) ? this.username : "Log in";
+      this.authBtn = Boolean(this.username) ? this.username : "Log in";
     },
   },
 };

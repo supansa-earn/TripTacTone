@@ -88,14 +88,10 @@ export default {
     tones: [["Dark"], ["Light"], ["Earthy"], ["Pastel"]],
     styles: [["Minimal"], ["Japandi"], ["Modern"], ["Loft"]],
   }),
-  watch: {
-    group() {
-      this.drawer = false;
-    },
-  },
+
   computed: {
     username() {
-      return this.$store.state.user || '';
+      return this.$store.state.user?.username || '';
     },
   },
 };
