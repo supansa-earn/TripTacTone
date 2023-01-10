@@ -44,7 +44,7 @@
           </v-list-group>
 
           <!-- CafeList -->
-          <v-list-item to="/cafeList">
+          <v-list-item to="/cafes">
             <v-list-item-icon>
               <v-icon>mdi-map-marker</v-icon>
             </v-list-item-icon>

@@ -1,9 +1,8 @@
 <template>
-<v-card class="mx-auto mt-5" width="250px"  color="listcard" elevation="4">
+<v-card class="mx-auto mt-5" width="250px"  color="listcard" elevation="4"  :data="cafe">
   <v-img
   class="white--text align-end"
   height="300px"
-  :src="scrImg"
 >
 </v-img>
 <v-card-text>
@@ -16,7 +15,7 @@
 </style>
 <script>
 export default {
-  props: ['scrImg'],
+  props: ['cafe'],
 
 };
 </script>

@@ -124,8 +124,11 @@ auth: {
   // redirect: {
   //   login: '/'
   // }
-}
+},
 
+env: {
+  baseAPI: 'http://localhost:3100'
+}
 
 
 
