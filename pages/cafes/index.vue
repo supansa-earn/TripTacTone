@@ -59,11 +59,7 @@ import { getCafes } from "../../api/cafe";
 
 export default {
   components: { Navbar, CafeCard },
-  data() {
-    return {
-      dialog: false
-    };
-  },
+
   async asyncData() {
     const cafes = await getCafes();
     return { cafes };

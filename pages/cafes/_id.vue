@@ -7,9 +7,9 @@
         width="700px"
         color="background"
         elevation="2"
-        :data="cafe"
+      
       >
-        fghjkl
+        ghjkl {{ data.Cafe_Name }}
       </v-card>
     </div>
     <div class="text-center mt-4">
@@ -18,8 +18,13 @@
   </v-app>
 </template>
 <script>
+import { getCafes } from "../../api/cafe";
 export default {
   props: ["data"],
+  async asyncData() {
+    const cafes = await getCafes();
+    return { cafes };
+  },
 };
 </script>
 <style scoped>
