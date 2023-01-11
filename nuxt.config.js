@@ -79,7 +79,7 @@ export default {
           button:"#E8DED3",
           accent: '#9c27b0',
           background: '#F6F1EB',
-          listcard:'#ECD7C2'
+          listcard:'#E4CEB4'
         }
       }
     }
