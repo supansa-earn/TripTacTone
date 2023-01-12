@@ -64,11 +64,11 @@
           </v-list-group>
 
           <!-- LogOut -->
-          <v-list-item>
+          <v-list-item v-if="username">
             <v-list-item-icon>
-              <v-icon>mdi-logout-variant</v-icon>
+              <v-icon>mdi-notebook</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Log Out</v-list-item-title>
+            <v-list-item-title>My Plan</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>

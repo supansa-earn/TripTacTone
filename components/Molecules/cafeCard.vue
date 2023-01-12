@@ -3,18 +3,18 @@
     <v-card
       class="mx-auto mt-5"
       width="300px"
-      max-height="500px"
+      min-height="428px"
       color="listcard"
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
-      :to="`/cafes/${data.Cafe_ID}`"
+      :to="`/cafes/${data.id}`"
       @mouseover="hoverTxt = 'Read full article'"
       @mouseleave="hoverTxt = ''"
     >
       <v-img
         class="white--text align-end"
         height="300px"
-        :src="`${data.Cafe_Pics}`"
+        :src="`${data.Cafe_Pic}`"
       >
       </v-img>
       <div
