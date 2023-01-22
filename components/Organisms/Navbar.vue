@@ -64,7 +64,7 @@
           </v-list-group>
 
           <!-- LogOut -->
-          <v-list-item v-if="username">
+          <v-list-item v-if="username" to="/myPlan">
             <v-list-item-icon>
               <v-icon>mdi-notebook</v-icon>
             </v-list-item-icon>

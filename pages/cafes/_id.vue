@@ -59,7 +59,7 @@
                 {{ cafe.Address }}
               </div>
               <a :href="mapLink" target="_blank" class="blue--text"
-                >See on google map</a
+                >See on Google Maps</a
               >
             </v-col>
             <v-col md="6">
@@ -87,10 +87,10 @@
                 <v-card color="listcard" class="px-10 py-2">
                   <h5>Open-Close</h5>
                   <div
-                  v-for="(d, i) in cafe.openClose"
-                  :key="i"
-                  class="text-caption"
-                  :class="{today: todayIndex == i + 1}"
+                    v-for="(d, i) in cafe.openClose"
+                    :key="i"
+                    class="text-caption"
+                    :class="{ today: todayIndex == i + 1 }"
                   >
                     {{ d.day }} | {{ d.open }} - {{ d.close }}
                   </div>
@@ -139,7 +139,9 @@ export default {
   },
   methods: {
     displayTones(tones) {
-      console.log("tones", tones);
+      if (!tones) {
+        return [];
+      }
       const _tones = tones.map((t) => {
         const arr = t.split("");
         arr[0] = arr[0].toUpperCase();
@@ -165,8 +167,8 @@ a {
 .close-dialog {
   float: right;
 }
-.today{
+.today {
   font-weight: bold;
-  color: #EF5350
+  color: #ef5350;
 }
 </style>
