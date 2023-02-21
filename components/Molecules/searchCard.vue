@@ -7,7 +7,7 @@
     >
     </v-img>
 
-    <v-card-actions class="d-flex align-center justify-cente">
+    <v-card-actions class="d-flex align-center justify-center">
       <slot></slot>
     </v-card-actions>
   </v-card>
