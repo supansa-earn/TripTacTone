@@ -70,9 +70,14 @@
 <script>
 import LoginBtn from "../../components/Atoms/LoginBtn.vue";
 import AddCafeForm from "../../components/Organisms/AddCafeForm.vue";
+import { createCafes } from "../../api/cafe";
 
 export default {
   components: { LoginBtn, AddCafeForm },
+  async asyncData() {
+    const cafes = (await createCafes()); //remove .slice(0, 8) after finish get on backend
+    return { cafes };
+  },
   data() {
     return {
       // Filter models.
