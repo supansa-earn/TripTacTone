@@ -28,13 +28,15 @@
           <v-row>
             <form>
               <div>
-                <v-text-field label="Cafe Name" required outlined></v-text-field>
+                <v-text-field  v-model="name" label="Cafe Name" required outlined>
+        
+                </v-text-field>
               </div>
               <div>
-                <v-text-field label="Detail" required outlined></v-text-field>
+                <v-text-field v-model="detail" label="Detail" required outlined></v-text-field>
               </div>
               <div>
-                <v-text-field label="Address" required outlined></v-text-field>
+                <v-text-field v-model="address" label="Address" required outlined></v-text-field>
               </div>
               <div>
                 <v-combobox
@@ -44,14 +46,15 @@
                   chips
                   required
                   outlined
+                  v-model="tone"
                 ></v-combobox>
               </div>
               <v-row>
               <v-col class="d-flex" cols="6" sm="6">
-                <v-select :items="styles" label="Style" required outlined></v-select>
+                <v-select :items="styles" label="Style" v-model="style" required outlined></v-select>
               </v-col>
               <v-col class="d-flex" cols="6" sm="6">
-                <v-select :items="times" label="Photogenic Time" required outlined></v-select>
+                <v-select :items="times" label="Photogenic Time" v-model="photogenic_time" required outlined></v-select>
               </v-col>
             </v-row>
              <div>
@@ -88,7 +91,7 @@
         <v-btn color="secondary" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn color="secondary" text @click="dialog = false"> Add </v-btn>
+        <v-btn color="secondary" text @click="submit()"> Add </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -96,6 +99,8 @@
 
 <script>
 import { createCafes } from "../../api/cafe";
+import axios from "axios";
+
 export default {
   async asyncData() {
     const cafes = (await createCafes()); //remove .slice(0, 8) after finish get on backend
@@ -125,6 +130,9 @@ export default {
     async clearImagePreview() {
       this.imagePreview = "";
     },
+    // async submit(){
+    //   $axios.post('/admin',this.form);
+    // },
   },
 };
 </script>

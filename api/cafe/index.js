@@ -12,6 +12,7 @@ const getCafes = async (id=null) => {
   }
 }
 
+<<<<<<< HEAD
 const createCafes = async () => {
   axios.post('/login', {
     dialog: false,
@@ -29,6 +30,31 @@ const createCafes = async () => {
   //   // return res.data
   // } catch (error) {
   //   throw error
+=======
+const getAllDetailCafes = async (id=null) => {
+  try {
+    let endpoint =  process.env.baseAPI
+    if(id) endpoint = `${endpoint}/${id}`
+    endpoint = `${endpoint}/cafe?allDetails=true`
+    const res = await axios(endpoint)
+
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+const createCafes = async (id=null) => {
+  try {
+    let endpoint =  `${process.env.baseAPI}/cafe`
+    if(id) endpoint = `${endpoint}/${id}`
+    const res = await axios.post(endpoint)
+
+    return res.data
+  } catch (error) {
+    throw error
+  }
+>>>>>>> 1a472180a159dcc391d2896e27abd9da8cad3068
 }
 
 const updateCafe = async () => {
@@ -39,4 +65,4 @@ const deleteCafe = async () => {
 
 }
 
-export { getCafes, createCafes, updateCafe, deleteCafe }
+export { getCafes, getAllDetailCafes, createCafes, updateCafe, deleteCafe }
