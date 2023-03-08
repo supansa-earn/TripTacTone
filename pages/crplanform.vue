@@ -23,7 +23,7 @@
                 </div>
                 <div class="box">
                    <h4>Style</h4>
-                  <v-select :items="items" label="Select Style" solo></v-select>
+                  <v-select :items="styles" label="Select Style" solo></v-select>
                 </div>
                 <div class="box">
                   <h4>Mood & Tone</h4>
@@ -181,7 +181,8 @@ export default {
   middleware:"auth",
   data() {
     return {
-      items: ["Minimal", "Japandi", "Modern", "Loft"],
+      items: ["Dark", "Light", "Earthy", "Pastel"],
+      styles: ["Minimal", "Japandi", "Modern", "Loft"],
       date: "",
       menu2: false,
       time: null,
