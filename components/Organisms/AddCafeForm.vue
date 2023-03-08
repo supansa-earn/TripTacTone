@@ -29,7 +29,7 @@
             <form>
               <div>
                 <v-text-field  v-model="name" label="Cafe Name" required outlined>
-        
+
                 </v-text-field>
               </div>
               <div>
@@ -41,12 +41,13 @@
               <div>
                 <v-combobox
                   :items="items"
-                  label="Select Mood&Tone"
+                  label="Select Mood&Tone (maximum 3 items)"
                   multiple
                   chips
                   required
                   outlined
-                  v-model="tone"
+                  v-model="tones"
+                  @change="selectMood"
                 ></v-combobox>
               </div>
               <v-row>
@@ -108,6 +109,7 @@ export default {
   },
   data: () => ({
     dialog: false,
+    tones: [],
     items: ["Dark", "Light", "Earthy", "Pastel"],
     styles: ["Minimal", "Japandi", "Loft", "Modern"],
     times: ["8.00-10.00", "11.00-13.00", "15.00-17.00"],
@@ -130,6 +132,9 @@ export default {
     async clearImagePreview() {
       this.imagePreview = "";
     },
+    selectMood(item){
+      if(this.tones.length > 3) this.tones.pop()
+    }
     // async submit(){
     //   $axios.post('/admin',this.form);
     // },

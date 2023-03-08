@@ -12,25 +12,40 @@ const getCafes = async (id=null) => {
   }
 }
 
-<<<<<<< HEAD
-const createCafes = async () => {
-  axios.post('/login', {
-    dialog: false,
-    items: ["Dark", "Light", "Earthy", "Pastel"],
-    styles: ["Minimal", "Japandi", "Loft", "Modern"],
-    times: ["8.00-10.00", "11.00-13.00", "15.00-17.00"],
-    image: "",
-    imagePreview: "",
-  });
-  // try {
-  //   // let endpoint =  `${process.env.baseAPI}/cafe`
-  //   // if(id) endpoint = `${endpoint}/${id}`
-  //   // const res = await axios(endpoint)
+const getStyles = async (id=null) => {
+  try {
+    let endpoint =  `${process.env.baseAPI}/cafe`
+    if(id) endpoint = `${endpoint}/${id}`
+    const res = await axios(endpoint)
 
-  //   // return res.data
-  // } catch (error) {
-  //   throw error
-=======
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+const getWithStyles = async (style) => {
+  try {
+    const endpoint =  `${process.env.baseAPI}/cafe/style/${style}`
+    const res = await axios(endpoint)
+
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+const getWithTones = async (tone) => {
+  try {
+    const endpoint =  `${process.env.baseAPI}/cafe/tone/${tone}`
+    const res = await axios(endpoint)
+
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 const getAllDetailCafes = async (id=null) => {
   try {
     let endpoint =  process.env.baseAPI
@@ -54,7 +69,6 @@ const createCafes = async (id=null) => {
   } catch (error) {
     throw error
   }
->>>>>>> 1a472180a159dcc391d2896e27abd9da8cad3068
 }
 
 const updateCafe = async () => {
@@ -65,4 +79,4 @@ const deleteCafe = async () => {
 
 }
 
-export { getCafes, getAllDetailCafes, createCafes, updateCafe, deleteCafe }
+export { getCafes, getAllDetailCafes, createCafes, updateCafe, deleteCafe, getStyles, getWithStyles, getWithTones }

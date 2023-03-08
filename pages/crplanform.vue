@@ -25,22 +25,18 @@
                    <h4>Style</h4>
                   <v-select :items="items" label="Select Style" solo></v-select>
                 </div>
-                <div>
-                 <h4>Mood & Tone</h4>
-                  <v-row>
-                    <v-col col="6">
-                      <v-checkbox label="Dark Tone" color="secondary">
-                      </v-checkbox>
-                      <v-checkbox label="Light Tone" color="secondary">
-                      </v-checkbox>
-                    </v-col>
-                    <v-col col="6" class="mr-14">
-                      <v-checkbox label="Pastel Tone" color="secondary">
-                      </v-checkbox>
-                      <v-checkbox label="Earthy Tone" color="secondary">
-                      </v-checkbox>
-                    </v-col>
-                  </v-row>
+                <div class="box">
+                  <h4>Mood & Tone</h4>
+                  <v-combobox
+                  :items="items"
+                  label="Select Mood&Tone (maximum 3 items)"
+                  multiple
+                  chips
+                  required
+                  solo
+                  v-model="tones"
+                  @change="selectMood"
+                ></v-combobox>
                 </div>
 
                 <!-- date -->
@@ -198,6 +194,11 @@ export default {
     console.log(this.time);
     console.log(this.test);
   },
+  methods:{
+    selectMood(item){
+      if(this.tones.length > 3) this.tones.pop()
+    }
+  }
 };
 </script>
 <style scoped>

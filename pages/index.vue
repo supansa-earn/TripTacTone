@@ -5,9 +5,12 @@
     <v-row class="pt-13">
       <v-col md="12" sm="6" class="d-flex justify-center mt-13">
         <div>
-
-          <h3 class="font-weight-medium pl-4 headline d-flex justify-center"
-          style="color: #F4592F">Trip Tac Tone</h3>
+          <h3
+            class="font-weight-medium pl-4 headline d-flex justify-center"
+            style="color: #f4592f"
+          >
+            Trip Tac Tone
+          </h3>
 
           <h1 class="mt-3 font-weight-black text2 ml-6">It's cafe o'clock</h1>
         </div>
@@ -17,8 +20,8 @@
     <v-row>
       <v-col md="4" sm="6" v-for="(el, index) in cards" :key="index">
         <div class="d-flex align-end justify-center ml-5">
-          <SearchCard :imgSrc="el.imgSrc">
-            <SelectCafe v-if="el.action == actionType.SELECT_CAFE"/>
+          <SearchCard :imgSrc="el.imgSrc" :actionType="el.action">
+            <SelectCafe v-if="el.action == actionType.SELECT_CAFE" />
             <DropdownSearch
               v-if="
                 el.action == actionType.SELECT_MOOD ||
@@ -26,6 +29,7 @@
               "
               :items="el.items"
               :title="el.title"
+              :actionType="el.action"
             />
           </SearchCard>
         </div>
@@ -38,22 +42,18 @@
         </div>
       </v-col>
     </v-row>
-
-
-
-
   </v-app>
 </template>
 
 <style scoped>
-#app{
+#app {
   overflow: hidden;
   height: 140vh;
 }
-.text2{
-  color: #F4592F;
+.text2 {
+  color: #f4592f;
   font-size: 50px;
-  font-family: 'Mansalva', cursive;
+  font-family: "Mansalva", cursive;
 }
 </style>
 
@@ -65,6 +65,7 @@ import Navbar from "../components/Organisms/Navbar.vue";
 import SearchCard from "../components/Molecules/searchCard.vue";
 import SelectCafe from "../components/Atoms/SelectCafe.vue";
 import DropdownSearch from "../components/Molecules/DropdownSearch.vue";
+
 const ACTION_TYPE = {
   SELECT_CAFE: "selectCafe",
   SELECT_MOOD: "selectMood",
@@ -107,6 +108,15 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    check() {
+      console.log(1234)
+      // if(this.$data.cards.actionType == this.$data.cards.items){
+      //   console.log(1234);
+      // }
+
+    },
   },
 };
 </script>
