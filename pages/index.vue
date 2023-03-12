@@ -48,7 +48,7 @@
 <style scoped>
 #app {
   overflow: hidden;
-  height: 140vh;
+  height: 130vh;
 }
 .text2 {
   color: #f4592f;

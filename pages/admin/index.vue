@@ -6,8 +6,9 @@
       >
       <v-spacer></v-spacer>
 
-      <AddCafeForm />
-      <LoginBtn />
+      <AddCafeForm @addCafe="onAddCafe"/>
+      <LoginBtn
+       />
       <!-- <LoginBtn :username="username"></LoginBtn> -->
     </v-app-bar>
 
@@ -18,6 +19,11 @@
         item-key="name"
         class="elevation-1 pa-6"
       >
+       <template v-slot:header.Photogenic_Time >
+        <button @click.stop="dialog2=true">Photogenic Time
+          <v-icon small>mdi-information-outline</v-icon>
+        </button>
+      </template>
         <template v-slot:top>
           <!-- v-container, v-col and v-row are just for decoration purposes. -->
           <v-container fluid>
@@ -41,15 +47,69 @@
         </template>
 
         <template #item.actions="{ item }">
-          <v-btn icon color="red darken-3">
+          <v-btn icon color="red darken-3" @click.stop="">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
-          <v-btn icon color="red darken-3">
+
+          <v-btn
+            icon
+            color="red darken-3"
+            @click.stop="confirmDeleteCafe(item)"
+          >
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </template>
       </v-data-table>
     </v-container>
+
+    <v-dialog v-model="dialog" max-width="700">
+      <v-card>
+        <v-card-title class="text-h5">
+          Are you sure you want to delete {{ selectedCafeName }}?
+        </v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="secondary" text @click="dialog = false">
+            Cancel
+          </v-btn>
+
+          <v-btn color="secondary" text @click="deleteCafe" :loading="loading">
+            Delete
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialog2" max-width="700">
+      <v-card>
+        <v-card-title class="text-h5">
+         Photogenic Time Information
+        </v-card-title>
+        <v-card-text>
+          Photogenic Time is the time of the light that is suitable for taking pictures. <br><br>
+
+          There are 3 durations <br>
+          &nbsp&nbsp&nbsp 1 : 08.00 - 10.00 - outdoor photo spot<br>
+          &nbsp&nbsp&nbsp 2 : 11.00 - 14.00 - indoor photo spot<br>
+          &nbsp&nbsp&nbsp 3 : 15.00 - 17.00 - outdoor photo spot<br>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="secondary" text @click="dialog2 = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-overlay
+      absolute
+      opacity="0"
+      :value="loading"
+      z-index="1000"
+    />
   </v-app>
 </template>
 <style scoped>
@@ -71,21 +131,25 @@
 import LoginBtn from "../../components/Atoms/LoginBtn.vue";
 import AddCafeForm from "../../components/Organisms/AddCafeForm.vue";
 import { getAllDetailCafes } from "../../api/cafe";
+import { deleteCafe } from "../../api/cafe/delete";
 
 export default {
   components: { LoginBtn, AddCafeForm },
   async asyncData() {
-    const cafes = (await getAllDetailCafes()); //remove .slice(0, 8) after finish get on backend
-    console.log(cafes)
-    return { cafes };
+    const cafes = await getAllDetailCafes(); //remove .slice(0, 8) after finish get on backend
+    return { cafes};
   },
 
   data() {
     return {
       // Filter models.
       cafeFilterValue: "",
+      dialog: false,
+      dialog2:false,
+      selectedCafeName: null,
+      selectedCafeID: null,
+      loading:false,
 
-     
     };
   },
   computed: {
@@ -111,9 +175,14 @@ export default {
         { text: "Color2", value: "Color[1]", sortable: false },
         { text: "Color3", value: "Color[2]", sortable: false },
         { text: "Color4", value: "Color[3]", sortable: false },
-        { text: "Photogenic Time", value: "Photogenic_Time", width: "120px" },
-        { text: "Open", value: "openClose[0].open", sortable: false, width: "130px" },
-        { text: "Close", value: "close", sortable: false, width: "130px" },
+        { text: "Photogenic Time", value: "Photogenic_Time", width: "120px", sortable:false },
+        {
+          text: "Open",
+          value: "openClose[0].open",
+          sortable: false,
+          width: "130px",
+        },
+        { text: "Close", value: "openClose[0].close", sortable: false, width: "130px" },
         { text: "Address", value: "Address", sortable: false, width: "200px" },
         { text: "Upload_Photo", value: "Cafe_Pics", sortable: false },
         {
@@ -122,7 +191,6 @@ export default {
           sortable: false,
           align: "center",
         },
-        
       ];
     },
   },
@@ -141,6 +209,20 @@ export default {
       // Check if the current loop value (The dessert name)
       // partially contains the searched word.
       return value.toLowerCase().includes(this.cafeFilterValue.toLowerCase());
+    },
+    confirmDeleteCafe(cafe) {
+      console.log(cafe);
+      this.selectedCafeID = cafe.Cafe_ID;
+      this.selectedCafeName = cafe.Cafe_Name;
+      this.dialog = true;
+    },
+    onAddCafe(){
+      this.loading=true;
+    },
+    async deleteCafe() {
+      this.loading=true;
+      await deleteCafe(this.selectedCafeID);
+      window.location.reload(true);
     },
   },
 };

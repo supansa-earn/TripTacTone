@@ -8,7 +8,7 @@
       <div >Style:</div>
     </v-content>
 
-    <v-main class="frame mt-5">
+    <v-main class=" mt-5">
       <v-card
         class="mx-auto mt-10 mb-13 pt-2 pb-7"
         width="600px"
@@ -224,20 +224,20 @@
 <script>
 
 import Navbar from "../../components/Organisms/Navbar.vue";
-import { getCafes } from "../../api/cafe";
+import { getPlan } from "../../api/myplan";
 
 
 export default {
   components: { Navbar},
-  async asyncData({ route }) {
-    const id = route.params.id;
-    const cafe = await getCafes(id);
+  async asyncData({ store }) {
+    const userId = store.state?.user?.uid || store.state?.user?.authUser.uid
+    const plans = await getPlan(userId);
     let baseMapLink = "https://www.google.com/maps/search/";
     const addressUri = encodeURIComponent(cafe.Address);
     let mapLink = baseMapLink + addressUri;
     mapLink = mapLink.replace(/ /gi, "+");
     mapLink = mapLink.replace(/,/gi, ",");
-    return { cafe, mapLink };
+    return { plans, mapLink };
   },
   data() {
     return {
@@ -269,9 +269,7 @@ a {
   width: 35px;
   height: 35px;
 }
-.frame {
-  background-color: #e7e0d8;
-}
+
 .close-dialog {
   float: right;
 }

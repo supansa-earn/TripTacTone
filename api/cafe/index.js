@@ -75,8 +75,6 @@ const updateCafe = async () => {
 
 }
 
-const deleteCafe = async () => {
 
-}
 
-export { getCafes, getAllDetailCafes, createCafes, updateCafe, deleteCafe, getStyles, getWithStyles, getWithTones }
+export { getCafes, getAllDetailCafes, createCafes, updateCafe, getStyles, getWithStyles, getWithTones }

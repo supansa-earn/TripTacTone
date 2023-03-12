@@ -10,89 +10,197 @@
         class="mr-5"
       >
         Add Cafe
-      </v-btn></template
-    >
+      </v-btn>
+    </template>
     <v-card>
-      <v-app-bar
-      dark
-      color="secondary"
-      elevation="1"
-      >
-      <v-card-title>
-        <span class="text-h5">Add Cafe</span>
-      </v-card-title>
-    </v-app-bar>
+      <v-app-bar dark color="secondary" elevation="1">
+        <v-card-title>
+          <span class="text-h5">Add Cafe</span>
+        </v-card-title>
+      </v-app-bar>
 
       <v-card-text class="mt-6">
         <v-container>
           <v-row>
-            <form>
+            <v-form ref="form">
               <div>
-                <v-text-field  v-model="name" label="Cafe Name" required outlined>
-
+                <v-text-field
+                  v-model="name"
+                  label="Cafe Name"
+                  required
+                  outlined
+                  :rules="inputRule"
+                >
                 </v-text-field>
               </div>
               <div>
-                <v-text-field v-model="detail" label="Detail" required outlined></v-text-field>
+                <v-text-field
+                  v-model="detail"
+                  label="Detail"
+                  required
+                  outlined
+                  :rules="inputRule"
+                ></v-text-field>
               </div>
               <div>
-                <v-text-field v-model="address" label="Address" required outlined></v-text-field>
+                <v-text-field
+                  v-model="address"
+                  label="Address"
+                  required
+                  outlined
+                  :rules="inputRule"
+                ></v-text-field>
               </div>
               <div>
                 <v-combobox
-                  :items="items"
+                  :items="tones"
                   label="Select Mood&Tone (maximum 3 items)"
                   multiple
                   chips
                   required
                   outlined
-                  v-model="tones"
+                  :rules="comboboxRule"
+                  v-model="selectedTone"
                   @change="selectMood"
                 ></v-combobox>
               </div>
               <v-row>
-              <v-col class="d-flex" cols="6" sm="6">
-                <v-select :items="styles" label="Style" v-model="style" required outlined></v-select>
-              </v-col>
-              <v-col class="d-flex" cols="6" sm="6">
-                <v-select :items="times" label="Photogenic Time" v-model="photogenic_time" required outlined></v-select>
-              </v-col>
-            </v-row>
-             <div>
-              <h3>Color Palette</h3>
-              <subtitle-1>Upload image to extract color</subtitle-1>
-              <v-card height="50vh">
-                <v-card-text>
-                  <v-img
-                    :src="image ? imagePreview : 'https://picsum.photos/id/11/500/300'"
-                    lazy-src="https://picsum.photos/id/11/10/6"
-                    height="30vh"
-                  ></v-img>
-                  <v-file-input
-                    v-model="image"
-                    accept="image/png, image/jpeg, image/bmp"
-                    placeholder="Pick an image"
-                    prepend-icon="mdi-camera"
-                    @change="selectImage"
-                    @click:clear="clearImagePreview()"
-                    label="Image"
-                  ></v-file-input>
-                </v-card-text>
-              </v-card>
+                <v-col class="d-flex" cols="6" sm="6">
+                  <v-select
+                    :items="styles"
+                    label="Style"
+                    v-model="selectedStyle"
+                    :rules="inputRule"
+                    required
+                    outlined
+                  ></v-select>
+                </v-col>
+                <v-col class="d-flex" cols="6" sm="6">
+                  <v-select
+                    :items="times"
+                    label="Photogenic Time"
+                    v-model="selectedTime"
+                    :rules="inputRule"
+                    required
+                    outlined
+                  ></v-select>
+                </v-col>
+              </v-row>
 
-             </div>
+              <div>
+                <h3>Color Palette</h3>
+                <v-row class="d-flex justify-space-between">
+                  <v-col class="d-flex" cols="7" sm="7">
+                    <v-color-picker
+                      mode.sync="hexa"
+                      hide-inputs
+                      v-model="holdColor"
+                    ></v-color-picker>
+                  </v-col>
+                  <v-col cols="4" sm="4">
+                    <v-btn block @click="onAddColor">Add</v-btn>
+                    <div v-for="(color, i) in selectedColor" :key="i">
+                      <v-chip
+                        class="d-flex justify-center"
+                        style="width: 100%; margin-top: 12px"
+                        :color="color"
+                        label
+                        close
+                        @click:close="onRemoveColor(i)"
+                      >
+                        {{ color }}
+                      </v-chip>
+                    </div>
+                  </v-col>
+                </v-row>
+              </div>
 
-            </form>
+              <div class="mt-5">
+                <v-row>
+                  <h3>Open Close</h3>
+                  <v-btn
+                    color="primary"
+                    x-small
+                    class="ml-3"
+                    @click="onAddOpenClose"
+                  >
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </v-row>
+
+                <!-- <v-row
+
+                > -->
+                <v-card class="d-flex justify-space-between mt-5 pa-3"
+                  v-for="(el, i) in openClose"
+                  :key="i"><v-col
+                  cols="3"
+                  sm="3"
+                >
+                  <v-row>
+                    <v-text-field
+                      v-model="el.openTime"
+                      type="time"
+                      label="open"
+                    ></v-text-field
+                  ></v-row>
+                  <v-row>
+                    <v-text-field
+                      v-model="el.closeTime"
+                      type="time"
+                      label="close"
+                    ></v-text-field
+                  ></v-row>
+                </v-col>
+                <v-col cols="8" sm="8">
+                  <v-combobox
+                    :items="days"
+                    multiple
+                    chips
+                    required
+                    outlined
+                    :rules="comboboxRule"
+                    v-model="el.days"
+                  ></v-combobox>
+                </v-col></v-card>
+
+                <!-- </v-row> -->
+              </div>
+              <!-- <div>
+                <subtitle-1>Upload image to extract color</subtitle-1>
+                <v-card height="50vh">
+                  <v-card-text>
+                    <v-img
+                      :src="
+                        image
+                          ? imagePreview
+                          : 'https://picsum.photos/id/11/500/300'
+                      "
+                      lazy-src="https://picsum.photos/id/11/10/6"
+                      height="30vh"
+                    ></v-img>
+                    <v-file-input
+                      v-model="image"
+                      accept="image/png, image/jpeg, image/bmp"
+                      placeholder="Pick an image"
+                      prepend-icon="mdi-camera"
+                      @change="selectImage"
+                      @click:clear="clearImagePreview()"
+                      label="Image"
+                    ></v-file-input>
+                  </v-card-text>
+                </v-card>
+              </div> -->
+            </v-form>
           </v-row>
         </v-container>
-
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" text @click="dialog = false">
-          Close
+        <v-btn color="secondary" text @click="dialog = false"> Close </v-btn>
+        <v-btn color="secondary" text :loading="loading" @click="submit">
+          Add
         </v-btn>
-        <v-btn color="secondary" text @click="submit()"> Add </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -104,17 +212,37 @@ import axios from "axios";
 
 export default {
   async asyncData() {
-    const cafes = (await createCafes()); //remove .slice(0, 8) after finish get on backend
-    return { cafes };
+    const cafes = await createCafes(); //remove .slice(0, 8) after finish get on backend
+    return { cafes: null };
   },
   data: () => ({
     dialog: false,
-    tones: [],
-    items: ["Dark", "Light", "Earthy", "Pastel"],
+    name: "",
+    address: "",
+    detail: "",
+    tones: ["Dark", "Light", "Earthy", "Pastel"],
     styles: ["Minimal", "Japandi", "Loft", "Modern"],
-    times: ["8.00-10.00", "11.00-13.00", "15.00-17.00"],
+    times: ["08.00-10.00", "11.00-13.00", "15.00-17.00"],
     image: "",
     imagePreview: "",
+    selectedTime: null,
+    selectedTone: [],
+    selectedStyle: null,
+    inputRule: [(v) => !!v || "Required"],
+    comboboxRule: [(v) => v.length > 0 || "Required"],
+    selectedColor: [],
+    holdColor: null,
+    loading: false,
+    openClose: [],
+    days: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
   }),
   methods: {
     async selectImage(e) {
@@ -132,12 +260,40 @@ export default {
     async clearImagePreview() {
       this.imagePreview = "";
     },
-    selectMood(item){
-      if(this.tones.length > 3) this.tones.pop()
-    }
-    // async submit(){
-    //   $axios.post('/admin',this.form);
-    // },
+    selectMood(item) {
+      if (this.selectedTone.length > 3) this.selectedTone.pop();
+    },
+    onAddColor() {
+      if (this.selectedColor.length < 4)
+        this.selectedColor.push(this.holdColor.hex);
+    },
+    onRemoveColor(idx) {
+      const a = this.selectedColor.slice(0, idx);
+      const b = this.selectedColor.slice(idx + 1);
+      this.selectedColor = [...a, ...b];
+    },
+    onAddOpenClose() {
+      const el = {
+        openTime: null,
+        closeTime: null,
+        days: [],
+      };
+
+      this.openClose.push(el);
+    },
+    onRemoveOpenClose(idx) {
+      const a = this.openClose.slice(0, idx);
+      const b = this.openClose.slice(idx + 1);
+      this.openClose = [...a, ...b];
+    },
+    async submit() {
+      const valid = this.$refs.form.validate();
+      if (!valid) return;
+      this.$emit("addCafe");
+      this.loading = true;
+      //  $axios.post('/admin',this.form);
+      window.location.reload(true);
+    },
   },
 };
 </script>
