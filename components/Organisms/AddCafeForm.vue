@@ -34,22 +34,26 @@
                 </v-text-field>
               </div>
               <div>
-                <v-text-field
-                  v-model="detail"
-                  label="Detail"
-                  required
-                  outlined
-                  :rules="inputRule"
-                ></v-text-field>
-              </div>
-              <div>
-                <v-text-field
+                <v-textarea
                   v-model="address"
                   label="Address"
                   required
                   outlined
                   :rules="inputRule"
-                ></v-text-field>
+                  auto-grow
+                  rows="2"
+                  row-height="30"
+                ></v-textarea>
+              </div>
+              <div>
+                <v-textarea
+                  v-model="detail"
+                  label="Detail"
+                  auto-grow
+                  required
+                  outlined
+                  :rules="inputRule"
+                ></v-textarea>
               </div>
               <div>
                 <v-combobox
@@ -116,13 +120,15 @@
               </div>
 
               <div class="mt-5">
-                <v-row>
+                <v-row class="d-flex align-center">
                   <h3>Open Close</h3>
                   <v-btn
-                    color="primary"
+                    color="secondary"
+                    fab
                     x-small
                     class="ml-3"
                     @click="onAddOpenClose"
+                    elevation="3"
                   >
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
@@ -131,38 +137,51 @@
                 <!-- <v-row
 
                 > -->
-                <v-card class="d-flex justify-space-between mt-5 pa-3"
-                  v-for="(el, i) in openClose"
-                  :key="i"><v-col
-                  cols="3"
-                  sm="3"
-                >
-                  <v-row>
-                    <v-text-field
-                      v-model="el.openTime"
-                      type="time"
-                      label="open"
-                    ></v-text-field
-                  ></v-row>
-                  <v-row>
-                    <v-text-field
-                      v-model="el.closeTime"
-                      type="time"
-                      label="close"
-                    ></v-text-field
-                  ></v-row>
-                </v-col>
-                <v-col cols="8" sm="8">
-                  <v-combobox
-                    :items="days"
-                    multiple
-                    chips
-                    required
-                    outlined
-                    :rules="comboboxRule"
-                    v-model="el.days"
-                  ></v-combobox>
-                </v-col></v-card>
+                <!-- Open close time card -->
+
+                <v-card class="mt-5 pa-3" v-for="(el, i) in openClose" :key="i">
+                  <v-row class="d-flex justify-end">
+                    <v-card-actions>
+                      <v-btn
+                        icon
+                        x-small
+                        @click="onRemoveOpenClose(i)"
+                        color="red"
+                      >
+                        <v-icon dark> mdi-window-close </v-icon>
+                      </v-btn>
+                    </v-card-actions>
+                  </v-row>
+                  <v-row class="d-flex justify-space-between">
+                    <v-col cols="3" sm="3" class="ml-5">
+                      <v-row>
+                        <v-text-field
+                          v-model="el.openTime"
+                          type="time"
+                          label="Open"
+                        ></v-text-field
+                      ></v-row>
+                      <v-row>
+                        <v-text-field
+                          v-model="el.closeTime"
+                          type="time"
+                          label="Close"
+                        ></v-text-field
+                      ></v-row>
+                    </v-col>
+                    <v-col cols="8" sm="8">
+                      <v-combobox
+                        :items="days"
+                        multiple
+                        chips
+                        required
+                        outlined
+                        :rules="comboboxRule"
+                        v-model="el.days"
+                      ></v-combobox>
+                    </v-col>
+                  </v-row>
+                </v-card>
 
                 <!-- </v-row> -->
               </div>
@@ -197,7 +216,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" text @click="dialog = false"> Close </v-btn>
+        <v-btn color="secondary" text @click="closeForm"> Close </v-btn>
         <v-btn color="secondary" text :loading="loading" @click="submit">
           Add
         </v-btn>
@@ -245,6 +264,10 @@ export default {
     ],
   }),
   methods: {
+    closeForm() {
+      this.dialog = false;
+      this.$refs.form.reset();
+    },
     async selectImage(e) {
       const file = e;
       if (!file) return;

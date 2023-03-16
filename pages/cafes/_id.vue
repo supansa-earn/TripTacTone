@@ -95,7 +95,7 @@
                     v-for="(d, i) in cafe.openClose"
                     :key="i"
                     class="text-caption"
-                    :class="{ today: todayIndex == i + 1 }"
+                    :class="{ today : todayIndex == i + 1 }"
                   >
                     {{ d.day }} | {{ d.open }} - {{ d.close }}
                   </div>
