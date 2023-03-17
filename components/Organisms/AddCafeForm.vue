@@ -121,7 +121,7 @@
 
               <div class="mt-5">
                 <v-row class="d-flex align-center">
-                  <h3>Open Close</h3>
+                  <h3 class="ml-3">Open Close</h3>
                   <v-btn
                     color="secondary"
                     fab
@@ -185,8 +185,8 @@
 
                 <!-- </v-row> -->
               </div>
-              <!-- <div>
-                <subtitle-1>Upload image to extract color</subtitle-1>
+              <!-- <div class="mt-5">
+                <h3>Upload Image</h3>
                 <v-card height="50vh">
                   <v-card-text>
                     <v-img
@@ -199,7 +199,7 @@
                       height="30vh"
                     ></v-img>
                     <v-file-input
-                      v-model="image"
+                      v-model="imagesUrl"
                       accept="image/png, image/jpeg, image/bmp"
                       placeholder="Pick an image"
                       prepend-icon="mdi-camera"
@@ -210,6 +210,40 @@
                   </v-card-text>
                 </v-card>
               </div> -->
+
+              <v-layout row>
+                <v-flex class="text-center font-weight-black">
+                  <h1>Upload a photo</h1>
+                </v-flex>
+              </v-layout>
+
+              <v-layout row>
+                <v-flex md6 offset-sm3>
+                  <div>
+                    <div>
+                      <v-btn @click="selectImg">choose photo</v-btn>
+                      <input
+                        type="file"
+                        ref="input1"
+                        multiple
+                        style="display: none"
+                        @change="previewImage"
+                        accept="image/*"
+                      />
+                    </div>
+
+                    <div v-for="(img, idx) in imgPreview" :key="'img-' + idx">
+                      <img
+                        class="preview"
+                        height="268"
+                        width="356"
+                        :src="img"
+                      />
+                      <br />
+                    </div>
+                  </div>
+                </v-flex>
+              </v-layout>
             </v-form>
           </v-row>
         </v-container>
@@ -226,12 +260,15 @@
 </template>
 
 <script>
-import { createCafes } from "../../api/cafe";
+import { createCafes } from "../../api/cafe/create";
 import axios from "axios";
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/firestore";
+import { storage } from "../../plugins/firebase";
 
 export default {
   async asyncData() {
-    const cafes = await createCafes(); //remove .slice(0, 8) after finish get on backend
+    //const cafes = await createCafes(); //remove .slice(0, 8) after finish get on backend
     return { cafes: null };
   },
   data: () => ({
@@ -242,8 +279,11 @@ export default {
     tones: ["Dark", "Light", "Earthy", "Pastel"],
     styles: ["Minimal", "Japandi", "Loft", "Modern"],
     times: ["08.00-10.00", "11.00-13.00", "15.00-17.00"],
-    image: "",
-    imagePreview: "",
+    // imagesUrl: [],
+    // imagePreview: "",
+
+    imgPreview: [],
+    imageData: null,
     selectedTime: null,
     selectedTone: [],
     selectedStyle: null,
@@ -262,26 +302,12 @@ export default {
       "Friday",
       "Saturday",
     ],
+    selectedImgs: [],
   }),
   methods: {
     closeForm() {
       this.dialog = false;
       this.$refs.form.reset();
-    },
-    async selectImage(e) {
-      const file = e;
-      if (!file) return;
-      const readData = (f) =>
-        new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result);
-          reader.readAsDataURL(f);
-        });
-      const data = await readData(file);
-      this.imagePreview = data;
-    },
-    async clearImagePreview() {
-      this.imagePreview = "";
     },
     selectMood(item) {
       if (this.selectedTone.length > 3) this.selectedTone.pop();
@@ -312,10 +338,52 @@ export default {
     async submit() {
       const valid = this.$refs.form.validate();
       if (!valid) return;
+      const uploadImg = await this.onUpload();
+      const data = {
+        name: this.name,
+        address: this.address,
+        detail: this.detail,
+        tone: this.selectedTone,
+        style: this.selectedStyle,
+        color: this.selectedColor,
+        openclose: this.openClose,
+        cafe_pics: uploadImg.imgURLs,
+        Img_Ref_Path: uploadImg.imgRefPath,
+        photogenic_time: this.times.indexOf(this.selectedTime)
+      };
       this.$emit("addCafe");
       this.loading = true;
-      //  $axios.post('/admin',this.form);
+      await createCafes(data);
       window.location.reload(true);
+    },
+    selectImg() {
+      this.$refs.input1.click();
+    },
+    previewImage(event) {
+      this.uploadValue = 0;
+      this.imageData = event.target.files[0];
+      if (event.target.files.length > 4) alert("Upload is limited by 4 images");
+      else {
+        this.imgPreview = [];
+        this.selectedImgs = event.target.files;
+        for (const file of this.selectedImgs) {
+          this.imgPreview.push(URL.createObjectURL(file));
+        }
+      }
+    },
+    async onUpload() {
+      const imgURLs = [];
+      const uuid = self.crypto.randomUUID();
+      for (const file of this.selectedImgs) {
+        const storageRef = storage.ref(`cafes/${uuid}/${file.name}`);
+        const res = await storage
+          .upload(storageRef, file)
+          .catch((err) => console.error(err));
+        const url = await storage.getDownloadURL(res.ref);
+        imgURLs.push(url);
+      }
+
+      return { imgRefPath: uuid, imgURLs: imgURLs };
     },
   },
 };

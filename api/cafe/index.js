@@ -59,22 +59,10 @@ const getAllDetailCafes = async (id=null) => {
   }
 }
 
-const createCafes = async (id=null) => {
-  try {
-    let endpoint =  `${process.env.baseAPI}/cafe`
-    if(id) endpoint = `${endpoint}/${id}`
-    const res = await axios.post(endpoint)
-
-    return res.data
-  } catch (error) {
-    throw error
-  }
-}
-
 const updateCafe = async () => {
 
 }
 
 
 
-export { getCafes, getAllDetailCafes, createCafes, updateCafe, getStyles, getWithStyles, getWithTones }
+export { getCafes, getAllDetailCafes, updateCafe, getStyles, getWithStyles, getWithTones }

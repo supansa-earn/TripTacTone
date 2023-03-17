@@ -1,5 +1,6 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 // import 'firebaseui/dist/firebaseui.css';
 // // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,7 +19,11 @@ const app = initializeApp(firebaseConfig);
 
 // // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-
 const logout = () => signOut(auth).then((_) => window.location.href = '/')
+const storage = {
+  ref: (path) => ref(getStorage(app), path),
+  upload: (ref, file) => uploadBytes(ref, file),
+  getDownloadURL:  getDownloadURL
+}
 
-export { auth, logout }
+export { auth, logout, storage }
