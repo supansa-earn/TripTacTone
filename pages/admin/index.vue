@@ -1,16 +1,16 @@
 <template>
   <v-app>
-    <v-app-bar color="background" elevate-on-scroll fixed>
-      <v-toolbar-title class="font-weight-bold pl-8 headline text4"
-        >Trip Tac Tone</v-toolbar-title
-      >
-      <v-spacer></v-spacer>
+      <v-app-bar color="background" elevate-on-scroll fixed>
+        <div @click="drawer = !drawer"><Hamburger></Hamburger></div>
 
-      <AddCafeForm @addCafe="onAddCafe"/>
-      <LoginBtn
-       />
-      <!-- <LoginBtn :username="username"></LoginBtn> -->
-    </v-app-bar>
+        <v-toolbar-title class="font-weight-bold pl-8 headline text4 web-title">
+          <div>Trip Tac Tone</div>
+          <v-img :width="60" class="ml-1" src="./Untitled.png" style="border: 1px solid transparent" />
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <AddCafeForm @addCafe="onAddCafe"/>
+        <LoginBtn/>
+      </v-app-bar>
 
     <v-container class="mt-10 pt-15">
       <v-data-table
@@ -34,7 +34,7 @@
 
               <v-col cols="6">
                 <v-row class="pa-6">
-                  <!-- Filter for dessert name-->
+                  <!-- Filter for cafe name-->
                   <v-text-field
                     v-model="cafeFilterValue"
                     type="text"
@@ -47,9 +47,11 @@
         </template>
 
         <template #item.actions="{ item }">
-          <v-btn icon color="red darken-3" @click.stop="">
+          <!-- <v-btn icon color="red darken-3">
             <v-icon>mdi-pencil</v-icon>
-          </v-btn>
+          </v-btn> -->
+          <EditCafeForm @editCafe="onEditCafe" :cafe="item" />
+
 
           <v-btn
             icon
@@ -90,9 +92,9 @@
           Photogenic Time is the time of the light that is suitable for taking pictures. <br><br>
 
           There are 3 durations <br>
-          &nbsp&nbsp&nbsp 1 : 08.00 - 10.00 - outdoor photo spot<br>
-          &nbsp&nbsp&nbsp 2 : 11.00 - 14.00 - indoor photo spot<br>
-          &nbsp&nbsp&nbsp 3 : 15.00 - 17.00 - outdoor photo spot<br>
+          &nbsp&nbsp&nbsp 0 : 08.00 - 10.00 - outdoor photo spot<br>
+          &nbsp&nbsp&nbsp 1 : 11.00 - 14.00 - indoor photo spot<br>
+          &nbsp&nbsp&nbsp 2 : 15.00 - 17.00 - outdoor photo spot<br>
         </v-card-text>
 
         <v-card-actions>
@@ -126,15 +128,22 @@
   color: #f4592f;
   font-style: bold;
 }
+.web-title{
+  font-family: 'Pacifico' !important;
+  display: flex;
+  align-items: center;
+}
+
 </style>
 <script>
 import LoginBtn from "../../components/Atoms/LoginBtn.vue";
 import AddCafeForm from "../../components/Organisms/AddCafeForm.vue";
 import { getAllDetailCafes } from "../../api/cafe";
 import { deleteCafe } from "../../api/cafe/delete";
+import EditCafeForm from "../../components/Organisms/EditCafeForm.vue";
 
 export default {
-  components: { LoginBtn, AddCafeForm },
+  components: { LoginBtn, AddCafeForm, EditCafeForm },
   async asyncData() {
     const cafes = await getAllDetailCafes(); //remove .slice(0, 8) after finish get on backend
     return { cafes};
@@ -143,6 +152,7 @@ export default {
   data() {
     return {
       // Filter models.
+
       cafeFilterValue: "",
       dialog: false,
       dialog2:false,
@@ -210,13 +220,22 @@ export default {
       // partially contains the searched word.
       return value.toLowerCase().includes(this.cafeFilterValue.toLowerCase());
     },
+    // openForm(){
+    //   if(openForm == )
+    // },
     confirmDeleteCafe(cafe) {
       console.log(cafe);
       this.selectedCafeID = cafe.Cafe_ID;
       this.selectedCafeName = cafe.Cafe_Name;
       this.dialog = true;
     },
+    testLog(cafe) {
+      console.log(cafe);
+    },
     onAddCafe(){
+      this.loading=true;
+    },
+    onEditCafe(){
       this.loading=true;
     },
     async deleteCafe() {

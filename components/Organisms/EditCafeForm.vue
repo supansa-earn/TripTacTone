@@ -1,21 +1,14 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        color="secondary"
-        text
-        rounded
-        v-bind="attrs"
-        v-on="on"
-        class="mr-5"
-      >
-        Add Cafe
+      <v-btn icon color="red darken-3" v-bind="attrs" v-on="on">
+        <v-icon>mdi-pencil</v-icon>
       </v-btn>
     </template>
     <v-card>
       <v-app-bar dark color="secondary" elevation="1">
         <v-card-title>
-          <span class="text-h5">Add Cafe</span>
+          <span class="text-h5">Edit Cafe</span>
         </v-card-title>
       </v-app-bar>
 
@@ -25,21 +18,19 @@
             <v-form ref="form">
               <div>
                 <v-text-field
-                  v-model="name"
+                  v-model="Cafe_Name"
                   label="Cafe Name"
-                  required
                   outlined
-                  :rules="inputRule"
+                  :placeholder="`${cafe.Cafe_Name}`"
                 >
                 </v-text-field>
               </div>
               <div>
                 <v-textarea
                   v-model="address"
+                  :placeholder="`${cafe.Address}`"
                   label="Address"
-                  required
                   outlined
-                  :rules="inputRule"
                   auto-grow
                   rows="2"
                   row-height="30"
@@ -48,11 +39,10 @@
               <div>
                 <v-textarea
                   v-model="detail"
+                  :placeholder="`${cafe.Detail}`"
                   label="Detail"
                   auto-grow
-                  required
                   outlined
-                  :rules="inputRule"
                 ></v-textarea>
               </div>
               <div>
@@ -61,9 +51,7 @@
                   label="Select Mood&Tone (maximum 3 items)"
                   multiple
                   chips
-                  required
                   outlined
-                  :rules="comboboxRule"
                   v-model="selectedTone"
                   @change="selectMood"
                 ></v-combobox>
@@ -74,8 +62,6 @@
                     :items="styles"
                     label="Style"
                     v-model="selectedStyle"
-                    :rules="inputRule"
-                    required
                     outlined
                   ></v-select>
                 </v-col>
@@ -84,8 +70,7 @@
                     :items="times"
                     label="Photogenic Time"
                     v-model="selectedTime"
-                    :rules="inputRule"
-                    required
+                    :placeholder="`${cafe.Photogenic_Time}`"
                     outlined
                   ></v-select>
                 </v-col>
@@ -174,9 +159,7 @@
                         :items="days"
                         multiple
                         chips
-                        required
                         outlined
-                        :rules="comboboxRule"
                         v-model="el.day"
                       ></v-combobox>
                     </v-col>
@@ -186,36 +169,32 @@
                 <!-- </v-row> -->
               </div>
 
-
               <div class="mt-10">
-                  <h3>Upload a photo</h3>
+                <h3>Upload a photo</h3>
               </div>
 
+              <div class="mt-2">
+                <div>
+                  <v-btn @click="selectImg" small>choose photo</v-btn>
+                  <input
+                    type="file"
+                    ref="input1"
+                    multiple
+                    style="display: none"
+                    @change="previewImage"
+                    accept="image/*"
+                  />
+                </div>
 
-                  <div class="mt-2">
-                    <div>
-                      <v-btn @click="selectImg" small>choose photo</v-btn>
-                      <input
-                        type="file"
-                        ref="input1"
-                        multiple
-                        style="display: none"
-                        @change="previewImage"
-                        accept="image/*"
-                      />
-                    </div>
-
-                    <div class="mt-2" v-for="(img, idx) in imgPreview" :key="'img-' + idx">
-                      <img
-                        class="preview"
-                        height="268"
-                        width="356"
-                        :src="img"
-                      />
-                      <br />
-                    </div>
-                  </div>
-
+                <div
+                  class="mt-2"
+                  v-for="(img, idx) in imgPreview"
+                  :key="'img-' + idx"
+                >
+                  <img class="preview" height="268" width="356" :src="img" />
+                  <br />
+                </div>
+              </div>
             </v-form>
           </v-row>
         </v-container>
@@ -232,38 +211,44 @@
 </template>
 
 <script>
-import { createCafes } from "../../api/cafe/create";
+import { updateCafe } from "../../api/cafe";
 import axios from "axios";
 // import firebase from "firebase/compat/app";
 // import "firebase/compat/firestore";
 import { storage } from "../../plugins/firebase";
 
 export default {
+  props: ["cafe"],
   async asyncData() {
-    //const cafes = await createCafes(); //remove .slice(0, 8) after finish get on backend
-    return { cafes: null };
+    const cafes = await updateCafe();
+    return { cafes };
   },
-  data: () => ({
-    dialog: false,
+  cafes() {
+    return {
+      hoverTxt: "",
+    };
+  },
 
-    name: "",
-    address: "",
-    detail: "",
+  data: ({ cafe }) => ({
+    dialog: false,
+    Cafe_Name: cafe.Cafe_Name,
+    address: cafe.Address,
+    detail: cafe.Detail,
     tones: ["Dark", "Light", "Earthy", "Pastel"],
     styles: ["Minimal", "Japandi", "Loft", "Modern"],
     times: ["08.00-10.00", "11.00-13.00", "15.00-17.00"],
 
-    imgPreview: [],
-    imageData: null,
-    selectedTime: null,
-    selectedTone: [],
-    selectedStyle: null,
+    imgPreview: cafe.Cafe_Pics,
+    imageData: "",
+    selectedTime: cafe.Photogenic_Time,
+    selectedTone: cafe.Tone,
+    selectedStyle: cafe.Style,
     inputRule: [(v) => !!v || "Required"],
     comboboxRule: [(v) => v.length > 0 || "Required"],
-    selectedColor: [],
+    selectedColor: cafe.Color,
     holdColor: null,
     loading: false,
-    openClose: [],
+    openClose: cafe.openClose,
     days: [
       "Sunday",
       "Monday",
@@ -273,9 +258,9 @@ export default {
       "Friday",
       "Saturday",
     ],
-    selectedImgs: [],
+    selectedImgs: cafe.Cafe_Pics,
 
-
+    editing: false,
   }),
   methods: {
     closeForm() {
@@ -314,20 +299,19 @@ export default {
       this.loading = true;
       const uploadImg = await this.onUpload();
       const data = {
-        name: this.name,
-        address: this.address,
-        detail: this.detail,
-        tone: this.selectedTone,
-        style: this.selectedStyle,
-        color: this.selectedColor,
-        openclose: this.openClose,
-        cafe_pics: uploadImg.imgURLs,
+        Cafe_Name: this.Cafe_Name,
+        Address: this.address,
+        Detail: this.detail,
+        Tone: this.selectedTone,
+        Style: this.selectedStyle,
+        Color: this.selectedColor,
+        openClose: this.openClose,
+        Cafe_Pics: uploadImg.imgURLs,
         Img_Ref_Path: uploadImg.imgRefPath,
-        photogenic_time: this.times.indexOf(this.selectedTime)
+        Photogenic_Time: this.times.indexOf(this.selectedTime),
       };
-      this.$emit("addCafe");
-
-      await createCafes(data);
+      this.$emit("editCafe");
+      await updateCafe(data, this.cafe.Cafe_ID);
       window.location.reload(true);
     },
     selectImg() {

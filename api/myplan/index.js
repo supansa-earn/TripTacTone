@@ -1,9 +1,9 @@
 import axios from "axios"
 
-const getPlan = async (id) => {
+const getPlan = async (userId) => {
   try {
-    if(!id) return []
-    let endpoint =  `${process.env.baseAPI}/myplan/${id}`
+    if(!userId) return []
+    let endpoint =  `${process.env.baseAPI}/myplan/${userId}`
     const res = await axios(endpoint)
 
     return res.data
@@ -12,20 +12,20 @@ const getPlan = async (id) => {
   }
 }
 
-// const getSuggestPlan = async(id) => {
-//   try {
-//     if(!id) return []
-//     let endpoint =  `${process.env.baseAPI}/myplan/${id}`
-//     const res = await axios(endpoint)
+const getSuggestPlan = async(id) => {
+  try {
+    let endpoint =  `${process.env.baseAPI}/myplan/id`
+    if (id) endpoint = `${endpoint}/${id}`
+    const res = await axios.get(endpoint)
 
-//     return res.data
+    return res.data
 
-//   } catch (error) {
-//     throw error
-//   }
+  } catch (error) {
+    throw error
+  }
 
-// }
+}
 
 
 
-export { getPlan }
+export { getPlan, getSuggestPlan }

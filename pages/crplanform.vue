@@ -198,7 +198,7 @@
         </v-row>
       </v-card>
       <v-snackbar v-model="snackbar" :timeout="3000">
-        Your plan
+        Create plan successfully!
 
         <template v-slot:action="{ attrs }">
           <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
@@ -262,11 +262,12 @@ export default {
         userId: this.$store.state.user.uid,
       };
 
-      await CreatePlan(data);
+      const res=await CreatePlan(data);
+      // console.log(res.data);
       this.snackbar = true;
       // this.$refs.form.reset()
       this.loading = false;
-      this.$router.push({ path: "/plan" });
+      this.$router.push({ path: `/plan/${res.data}` });
     },
   },
 };

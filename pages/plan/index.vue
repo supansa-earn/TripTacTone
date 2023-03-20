@@ -4,8 +4,15 @@
     <v-content class="mt-16 mx-16">
       <h1 class="mt-10 mb-3">Suggested Plan</h1>
       <v-divider></v-divider>
-      <div class="mt-3">Mood & Tone:{{ plans.UserTone }}</div>
-      <div>Style:{{plans.UserStyle}}</div>
+      <div class="mt-3">Mood & Tone: {{ plans.User_Tone }} </div>
+      <div>Style: {{plans.UserStyle}} </div>
+
+      <!-- <v-row>
+        <v-col v-for="(plan, index) in plans" :key="index" cols="12" md="3">
+          <div>{{plans.Style}}</div>
+          <CafeCard :data="plan"></CafeCard>
+        </v-col>
+      </v-row> -->
     </v-content>
 
     <!-- <v-card
@@ -22,7 +29,7 @@
 
     <v-main class=" mt-5">
       <v-card
-      outlined
+        outlined
         class="mx-auto mt-10 mb-13 pt-2 pb-7"
         width="600px"
         color="background"
@@ -31,6 +38,7 @@
         <h1 class="mx-10 red--text text--lighten-1">
           {{ plans.Cafe_Name }}
         </h1>
+
 
         <!-- <div class="mx-10">
           {{ plans.Detail }}
@@ -134,20 +142,22 @@
 
 <script>
 import Navbar from "../../components/Organisms/Navbar.vue";
-import { getPlan } from "../../api/myplan";
+import {getSuggestPlan } from "../../api/myplan";
 
 export default {
   components: { Navbar },
-  async asyncData({ store }) {
-
-    const userId = store.state?.user?.uid || store.state?.user?.authUser.uid
-    const plans = await getPlan(userId);
-    let baseMapLink = "https://www.google.com/maps/search/";
-    const addressUri = encodeURIComponent(plans.Address);
-    let mapLink = baseMapLink + addressUri;
-    mapLink = mapLink.replace(/ /gi, "+");
-    mapLink = mapLink.replace(/,/gi, ",");
-    return { plans, mapLink };
+  async asyncData({ route }) {
+    // let plans= [];
+    const id = route.params.id;
+    const plans = await getSuggestPlan(id)
+    // const id = store.state?.user?.uid || store.state?.user?.authUser.uid
+    // const plans = await getSuggestPlan(id);
+    // let baseMapLink = "https://www.google.com/maps/search/";
+    // const addressUri = encodeURIComponent(plans.Address);
+    // let mapLink = baseMapLink + addressUri;
+    // mapLink = mapLink.replace(/ /gi, "+");
+    // mapLink = mapLink.replace(/,/gi, ",");
+    return {plans};
 
    },
   data() {

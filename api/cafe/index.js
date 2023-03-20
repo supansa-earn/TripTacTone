@@ -1,9 +1,9 @@
 import axios from "axios"
 
-const getCafes = async (id=null) => {
+const getCafes = async (id = null) => {
   try {
-    let endpoint =  `${process.env.baseAPI}/cafe`
-    if(id) endpoint = `${endpoint}/${id}`
+    let endpoint = `${process.env.baseAPI}/cafe`
+    if (id) endpoint = `${endpoint}/${id}`
     const res = await axios(endpoint)
 
     return res.data
@@ -12,10 +12,10 @@ const getCafes = async (id=null) => {
   }
 }
 
-const getStyles = async (id=null) => {
+const getStyles = async (id = null) => {
   try {
-    let endpoint =  `${process.env.baseAPI}/cafe`
-    if(id) endpoint = `${endpoint}/${id}`
+    let endpoint = `${process.env.baseAPI}/cafe`
+    if (id) endpoint = `${endpoint}/${id}`
     const res = await axios(endpoint)
 
     return res.data
@@ -26,7 +26,7 @@ const getStyles = async (id=null) => {
 
 const getWithStyles = async (style) => {
   try {
-    const endpoint =  `${process.env.baseAPI}/cafe/style/${style}`
+    const endpoint = `${process.env.baseAPI}/cafe/style/${style}`
     const res = await axios(endpoint)
 
     return res.data
@@ -37,7 +37,7 @@ const getWithStyles = async (style) => {
 
 const getWithTones = async (tone) => {
   try {
-    const endpoint =  `${process.env.baseAPI}/cafe/tone/${tone}`
+    const endpoint = `${process.env.baseAPI}/cafe/tone/${tone}`
     const res = await axios(endpoint)
 
     return res.data
@@ -46,10 +46,10 @@ const getWithTones = async (tone) => {
   }
 }
 
-const getAllDetailCafes = async (id=null) => {
+const getAllDetailCafes = async (id = null) => {
   try {
-    let endpoint =  process.env.baseAPI
-    if(id) endpoint = `${endpoint}/${id}`
+    let endpoint = process.env.baseAPI
+    if (id) endpoint = `${endpoint}/${id}`
     endpoint = `${endpoint}/cafe?allDetails=true`
     const res = await axios(endpoint)
 
@@ -59,8 +59,15 @@ const getAllDetailCafes = async (id=null) => {
   }
 }
 
-const updateCafe = async () => {
-
+const updateCafe = async (data,id = null) => {
+  try {
+    let endpoint =  `${process.env.baseAPI}/cafe/${id}`
+    const res = await axios.put(endpoint, data)
+    console.log(data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
 }
 
 
