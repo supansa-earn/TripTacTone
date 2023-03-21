@@ -50,7 +50,15 @@
           <!-- <v-btn icon color="red darken-3">
             <v-icon>mdi-pencil</v-icon>
           </v-btn> -->
-          <EditCafeForm @editCafe="onEditCafe" :cafe="item" />
+          <EditCafeForm @editCafe="onEditCafe" :cafe="item"
+
+          />
+          <!-- <div v-for="(d, i) in cafe.openclose"
+                    :key="i"
+                    class="text-caption">
+
+
+          </div> -->
 
 
           <v-btn
@@ -144,12 +152,125 @@ import EditCafeForm from "../../components/Organisms/EditCafeForm.vue";
 
 export default {
   components: { LoginBtn, AddCafeForm, EditCafeForm },
+  // async asyncData() {
+  //   const cafes = await getAllDetailCafes(); //remove .slice(0, 8) after finish get on backend
+  //   return { cafes};
+  // },
   async asyncData() {
-    const cafes = await getAllDetailCafes(); //remove .slice(0, 8) after finish get on backend
-    return { cafes};
-  },
+    const res = await getAllDetailCafes();
+    const cafes = res.map((el) => {
+      let selectedTime;
+      if(el.Photogenic_Time==1){
+        selectedTime="08.00-10.00"
+      }else if(el.Photogenic_Time==2){
+        selectedTime="11.00-14.00"
+      }else if(el.Photogenic_Time==3){
+        selectedTime="15.00-17.00"
+      }
+      return {...el,selectedTime};
+    });
 
+    // const open=[]
+    // for(const eachcafe of cafes){
+    //   for(const time of eachcafe.openClose){
+
+    //   }
+    // }
+
+    // const dayweight = {
+    //     Monday: 1,
+    //     Tuesday: 2,
+    //     Wednesday: 3,
+    //     Thursday: 4,
+    //     Friday: 5,
+    //     Saturday: 6,
+    //     Sunday: 7,
+    //   };
+    //   const dayfill = [
+    //     {
+    //       day: "Monday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Monday" },
+    //     },
+    //     {
+    //       day: "Tuesday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Tuesday" },
+    //     },
+    //     {
+    //       day: "Wednesday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Wednesday" },
+    //     },
+    //     {
+    //       day: "Thursday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Thursday" },
+    //     },
+    //     {
+    //       day: "Friday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Friday" },
+    //     },
+    //     {
+    //       day: "Saturday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Saturday" },
+    //     },
+    //     {
+    //       day: "Sunday",
+    //       isfill: false,
+    //       default: { isclosed: true, day: "Sunday" },
+    //     },
+    //   ];
+
+    //   const openclose = [];
+    //   console.log(cafes.openClose);
+    //   if (Array.isArray(cafes.openClose)) {
+    //     for (const time of cafes.openClose) {
+    //       if (Array.isArray(time.day)) {
+    //         for (const day of time.day) {
+    //           const check = dayfill.find((cafes) => cafes.day == day);
+    //           check.isfill = true;
+    //           openclose.push({
+    //             day,
+    //             open: time.open,
+    //             close: time.close,
+    //             isclosed: false,
+    //           });
+    //         }
+    //       }
+    //     }
+    //   }
+    //   dayfill.forEach((cafes) => {
+    //     if (!cafes.isfill) openclose.push(cafes.default);
+    //   });
+    //   openclose.sort((a, b) => {
+    //     if (dayweight[a.day] > dayweight[b.day]) {
+    //       return 1;
+    //     } else if (dayweight[b.day] > dayweight[a.day]) {
+    //       return -1;
+    //     }
+    //   });
+
+      // <div
+      //               v-for="(d, i) in cafe.openclose"
+      //               :key="i"
+      //               class="text-caption"
+      //               :class="{ today: todayIndex == i + 1 }"
+      //             >
+      //               {{
+      //                 !d.isclosed
+      //                   ? d.day + "|" + d.open + "-" + d.close
+      //                   : d.day + "closed"
+      //               }}
+      //             </div>
+
+        // console.log(openclose)
+    return { cafes };
+  },
   data() {
+
     return {
       // Filter models.
 
@@ -185,7 +306,8 @@ export default {
         { text: "Color2", value: "Color[1]", sortable: false },
         { text: "Color3", value: "Color[2]", sortable: false },
         { text: "Color4", value: "Color[3]", sortable: false },
-        { text: "Photogenic Time", value: "Photogenic_Time", width: "120px", sortable:false },
+        { text: "Address", value: "Address", sortable: false, width: "200px" },
+
         {
           text: "Open",
           value: "openClose[0].open",
@@ -193,7 +315,8 @@ export default {
           width: "130px",
         },
         { text: "Close", value: "openClose[0].close", sortable: false, width: "130px" },
-        { text: "Address", value: "Address", sortable: false, width: "200px" },
+        // { text: "open-close", value: "openclose", sortable: false, width: "200px" },
+        { text: "Photogenic Time", value: "Photogenic_Time", width: "120px", sortable:false },
         { text: "Upload_Photo", value: "Cafe_Pics", sortable: false },
         {
           text: "Edit/Delete",
@@ -205,11 +328,14 @@ export default {
     },
   },
   methods: {
+
     /**
      * Filter for dessert names column.
      * @param value Value to be tested.
      * @returns {boolean}
      */
+
+
     nameFilter(value) {
       // If this filter has no value we just skip the entire filter.
       if (!this.cafeFilterValue) {
@@ -218,7 +344,7 @@ export default {
 
       // Check if the current loop value (The dessert name)
       // partially contains the searched word.
-      return value.toLowerCase().includes(this.cafeFilterValue.toLowerCase());
+      return value?.toLowerCase().includes(this.cafeFilterValue.toLowerCase());
     },
     // openForm(){
     //   if(openForm == )

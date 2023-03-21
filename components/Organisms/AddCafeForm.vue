@@ -251,7 +251,7 @@ export default {
     detail: "",
     tones: ["Dark", "Light", "Earthy", "Pastel"],
     styles: ["Minimal", "Japandi", "Loft", "Modern"],
-    times: ["08.00-10.00", "11.00-13.00", "15.00-17.00"],
+    times: ["08.00-10.00", "11.00-14.00", "15.00-17.00"],
 
     imgPreview: [],
     imageData: null,
@@ -274,6 +274,7 @@ export default {
       "Saturday",
     ],
     selectedImgs: [],
+
 
 
   }),
@@ -323,7 +324,7 @@ export default {
         openclose: this.openClose,
         cafe_pics: uploadImg.imgURLs,
         Img_Ref_Path: uploadImg.imgRefPath,
-        photogenic_time: this.times.indexOf(this.selectedTime)
+        photogenic_time: this.times.indexOf(this.selectedTime) + 1
       };
       this.$emit("addCafe");
 
@@ -359,6 +360,11 @@ export default {
 
       return { imgRefPath: uuid, imgURLs: imgURLs };
     },
+    // async indexOf(){
+    //   if (this.indexOf(this.selectedTime)===0){
+    //     return this.index ++
+    //   }
+    // }
   },
 };
 </script>

@@ -6,7 +6,7 @@
         <v-row>
           <v-col col="6">
             <v-img
-              height="750px"
+              height="700px"
               width="400px"
               src="https://www.naibann.com/wp-content/uploads/2019/05/moc-little-farm-cafe-6.jpg"
             >
@@ -189,7 +189,7 @@
                     @click="onCreatePlan"
                     :loading="loading"
                   >
-                    Submit
+                    Save Plan
                   </v-btn>
                 </v-card-actions>
               </v-form>
@@ -284,6 +284,6 @@ export default {
 }
 #app {
   overflow: hidden;
-  height: 130vh;
+  height: 115vh;
 }
 </style>

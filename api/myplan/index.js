@@ -5,7 +5,7 @@ const getPlan = async (userId) => {
     if(!userId) return []
     let endpoint =  `${process.env.baseAPI}/myplan/${userId}`
     const res = await axios(endpoint)
-
+    // console.log(endpoint)
     return res.data
   } catch (error) {
     throw error

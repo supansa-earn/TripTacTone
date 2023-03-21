@@ -21,14 +21,14 @@
                   v-model="Cafe_Name"
                   label="Cafe Name"
                   outlined
-                  :placeholder="`${cafe.Cafe_Name}`"
+
                 >
                 </v-text-field>
               </div>
               <div>
                 <v-textarea
                   v-model="address"
-                  :placeholder="`${cafe.Address}`"
+
                   label="Address"
                   outlined
                   auto-grow
@@ -39,7 +39,7 @@
               <div>
                 <v-textarea
                   v-model="detail"
-                  :placeholder="`${cafe.Detail}`"
+
                   label="Detail"
                   auto-grow
                   outlined
@@ -69,10 +69,11 @@
                   <v-select
                     :items="times"
                     label="Photogenic Time"
-                    v-model="selectedTime"
-                    :placeholder="`${cafe.Photogenic_Time}`"
+                    v-model="cafe.selectedTime"
                     outlined
-                  ></v-select>
+                  >
+
+                  </v-select>
                 </v-col>
               </v-row>
 
@@ -219,10 +220,7 @@ import { storage } from "../../plugins/firebase";
 
 export default {
   props: ["cafe"],
-  async asyncData() {
-    const cafes = await updateCafe();
-    return { cafes };
-  },
+
   cafes() {
     return {
       hoverTxt: "",
@@ -236,11 +234,11 @@ export default {
     detail: cafe.Detail,
     tones: ["Dark", "Light", "Earthy", "Pastel"],
     styles: ["Minimal", "Japandi", "Loft", "Modern"],
-    times: ["08.00-10.00", "11.00-13.00", "15.00-17.00"],
+    times: ["08.00-10.00", "11.00-14.00", "15.00-17.00"],
 
     imgPreview: cafe.Cafe_Pics,
     imageData: "",
-    selectedTime: cafe.Photogenic_Time,
+    // selectedTime:  cafe.Photogenic_Time,
     selectedTone: cafe.Tone,
     selectedStyle: cafe.Style,
     inputRule: [(v) => !!v || "Required"],
@@ -310,6 +308,14 @@ export default {
         Img_Ref_Path: uploadImg.imgRefPath,
         Photogenic_Time: this.times.indexOf(this.selectedTime),
       };
+
+      // if(this.selectedTime=="08.00-10.00"){
+      //   return this.cafe.Photogenic_Time==1
+      // }else if(this.selectedTime=="11.00-14.00"){
+      //   return this.cafe.Photogenic_Time==2
+      // }else if(this.selectedTime=="15.00-17.00"){
+      //   return this.cafe.Photogenic_Time==3
+      // }
       this.$emit("editCafe");
       await updateCafe(data, this.cafe.Cafe_ID);
       window.location.reload(true);
