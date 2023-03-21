@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  mode:'universal',
+  mode:'spa',
   head: {
     titleTemplate: '%s - Trip Tac Tone',
     title: 'Trip Tac Tone',
