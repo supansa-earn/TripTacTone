@@ -2,10 +2,10 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
-  mode:'spa',
+  mode:'universal',
   head: {
-    titleTemplate: '%s - tiptactone',
-    title: 'tiptactone',
+    titleTemplate: '%s - Trip Tac Tone',
+    title: 'Trip Tac Tone',
     htmlAttrs: {
       lang: 'en'
     },
