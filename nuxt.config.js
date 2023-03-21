@@ -87,25 +87,25 @@ export default {
   },
   build: {
   },
-  router:{
-    routes: [
-      {
-        name: 'index',
-        path: '/',
-        component: 'pages/index.vue'
-      },
-      {
-        name: 'home',
-        path: '/home',
-        component: 'pages/home.vue'
-      },
-      {
-        name: 'login',
-        path: '/login',
-        component: 'pages/login.vue'
-      }
-    ]
-  },
+  // router:{
+  //   routes: [
+  //     {
+  //       name: 'index',
+  //       path: '/',
+  //       component: 'pages/index.vue'
+  //     },
+  //     {
+  //       name: 'home',
+  //       path: '/home',
+  //       component: 'pages/home.vue'
+  //     },
+  //     {
+  //       name: 'login',
+  //       path: '/login',
+  //       component: 'pages/login.vue'
+  //     }
+  //   ]
+  // },
   // optional
 axios: {
   baseURL: 'http://127.0.0.1:8888/api',
@@ -128,7 +128,7 @@ auth: {
 },
 
 env: {
-  baseAPI: 'http://localhost:3100'
+  baseAPI: 'https://trip-tac-tone-back-production.up.railway.app'
 }
 
 
