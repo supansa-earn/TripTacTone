@@ -100,9 +100,9 @@
           Photogenic Time is the time of the light that is suitable for taking pictures. <br><br>
 
           There are 3 durations <br>
-          &nbsp&nbsp&nbsp 0 : 08.00 - 10.00 - outdoor photo spot<br>
-          &nbsp&nbsp&nbsp 1 : 11.00 - 14.00 - indoor photo spot<br>
-          &nbsp&nbsp&nbsp 2 : 15.00 - 17.00 - outdoor photo spot<br>
+          &nbsp&nbsp&nbsp 1 : 08.00 - 10.00 - outdoor photo spot<br>
+          &nbsp&nbsp&nbsp 2 : 11.00 - 14.00 - indoor photo spot<br>
+          &nbsp&nbsp&nbsp 3 : 15.00 - 17.00 - outdoor photo spot<br>
         </v-card-text>
 
         <v-card-actions>

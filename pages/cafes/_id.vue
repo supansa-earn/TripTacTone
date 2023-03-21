@@ -88,7 +88,7 @@
 
               <div class="d-flex justify-center mt-5">
                 <v-card color="listcard" class="px-10 py-2" >
-                  <h5 class="head">Open-Close</h5>
+                  <h5 class="head red--text text--lighten-1">Open-Close</h5>
                   <!-- <div
                     v-for="(d, i) in openclose"
                     :key="i"
