@@ -9,7 +9,6 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <AddCafeForm @addCafe="onAddCafe"/>
-        <LoginBtn/>
       </v-app-bar>
 
     <v-container class="mt-10 pt-15">
@@ -123,15 +122,7 @@
   </v-app>
 </template>
 <style scoped>
-.text {
-  opacity: 1 !important;
-  z-index: 2001;
-  font-weight: bold;
-  -webkit-text-stroke: 0.2px #f4592f;
-  font-size: 22px;
-  text-shadow: 2px 2px 0 #f4592f, -1px -1px 0 #f4592f, 1px -1px 0 #f4592f,
-    -1px 1px 0 #f4592f, 1px 1px 0 #f4592f;
-}
+@import url('https://fonts.googleapis.com/css2?family=Grandstander:wght@700&display=swap');
 .text4 {
   color: #f4592f;
   font-style: bold;
