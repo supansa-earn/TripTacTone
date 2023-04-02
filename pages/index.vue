@@ -35,21 +35,18 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
+    <!-- <v-row>
       <v-col>
         <div class="d-flex justify-center">
           <CreatePlan to="/login"></CreatePlan>
         </div>
       </v-col>
-    </v-row>
+    </v-row> -->
   </v-app>
 </template>
 
 <style scoped>
-#app {
-  overflow: hidden;
-  height: 130vh;
-}
+
 .text2 {
   color: #f4592f;
   font-size: 50px;
